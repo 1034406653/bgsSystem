@@ -1,0 +1,91 @@
+.header-box {
+	text-indent: 20px;
+	width: 100%;
+	height: 64px;
+	line-height: 64px;
+	padding-left: 14px;
+	box-shadow: 1px 2px 8px #ddd;
+	overflow: hidden;
+}
+
+.logo {
+	width: 40px;
+	height: 40px;
+	float: left;
+	background: url(../img/logo.png);
+	background-size: 100% 100%;
+	margin-top: 10px;
+}
+
+h1 {
+	width: auto;
+	height: 64px;
+	float: left;
+	line-height: 64px;
+	font-size: 24px;
+	color: #409eff;
+	;
+	font-weight: normal;
+}
+
+.header-menu {
+	font-size: 18px;
+	height: 50px !important;
+	line-height: 50px;
+	box-shadow: 0px 1px 3px #ddd;
+	color: #333;
+}
+.table-main{
+	box-shadow: 0px 1px 3px #ddd;
+	margin-top: 20px;
+}
+.export2Excel{
+	width: auto;
+	float: left;
+	padding: 0 20px;
+	height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #909399;
+	margin: 2px 4px;
+	border: 1px solid #dcdfe6;
+	border-radius: 13px;
+	 
+}
+.export2Excel:hover {
+    background: #81b4e830;
+    color: #81b4e8;
+    border: 1px solid #81b4e850;
+}
+.pagination-box{
+	margin-top: 10px;
+}
+/*表格*/
+
+.cell {
+	text-align: center;
+}       
+
+.search-box {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	padding: 10px 0;
+}
+.inputbox{
+	float: left;
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	float: right;
+}
+.inputbox input{
+	width: 200px;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	color: #666;
+	height: 30px;
+	line-height: 30px;
+	text-indent: 10px;
+	border-radius: 10px;
+}
