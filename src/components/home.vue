@@ -180,7 +180,6 @@
 	}
 	
 	.mainPage-left {
-		
 		box-shadow: 4px 4px 10px #ddd;
 	}
 </style>

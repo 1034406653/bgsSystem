@@ -12,32 +12,32 @@
 			</div>
 			<template>
 				<el-table :data="userList" style="width: 100%" stripe>
-					<el-table-column prop="uid" label="ID" width="150">
+					<el-table-column prop="uid" label="ID">
 					</el-table-column>
-					<el-table-column prop="nickName" label="用户名" width="150">
+					<el-table-column prop="nickName" label="用户名">
 					</el-table-column>
-					<el-table-column label="头像" width="90">
+					<el-table-column label="头像">
 						<template slot-scope="scope">
 							<img :src="scope.row.headPhoto" class="headPhoto" />
 						</template>
 					</el-table-column>
-					<el-table-column prop="phoneNumber" label="手机号" width="150">
+					<el-table-column prop="phoneNumber" label="手机号">
 					</el-table-column>
 					<el-table-column prop="sex" label="性别" width="100">
 					</el-table-column>
-					<el-table-column prop="invitedCode" label="邀请码" width="100">
+					<el-table-column prop="invitedCode" label="邀请码">
 					</el-table-column>
-					<el-table-column prop="inviter" label="邀请人" width="100">
+					<el-table-column prop="inviter" label="邀请人">
 					</el-table-column>
-					<el-table-column prop="isAgency" label="代理人" width="100">
+					<el-table-column prop="isAgency" label="代理人">
 					</el-table-column>
-					<el-table-column prop="status" label="状态" width="100">
+					<el-table-column prop="status" label="状态">
 						<template slot-scope="scope">
 							<span v-if='scope.row.status==0'>正常</span>
 							<span v-if='scope.row.status==1'>禁用</span>
 						</template>
 					</el-table-column>
-					<el-table-column label="实名认证" prop="isAgency" width="100">
+					<el-table-column label="实名认证" prop="isAgency">
 						<template slot-scope="scope">
 							<el-button size="mini" @click="handleRealname(scope.row)">查看</el-button>
 						</template>
@@ -105,7 +105,6 @@
 					url: '/mgrsite/users.do',
 					params: this.pUserData,
 				}).then(res => {
-					console.log(res);
 					if(res.status == 200) {
 						this.totalCount = res.data.result.totalCount;
 						this.userList = res.data.result.data;
@@ -183,6 +182,14 @@
 			handleRecover(userData) {
 				console.log(userData)
 			},
+			
+		},
+		activated(){
+			if(this.$route.query.uid){
+				this.pUserData.keyword=this.$route.query.uid||'';
+				this.keyword=this.pUserData.keyword;
+				this.init();
+			}
 		}
 	}
 </script>
