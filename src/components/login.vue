@@ -3,8 +3,8 @@
 		<div class="login-popup">
 			<div class="login-head">登录</div>
 			<div class="formDiv">
-				<div><i class="login-username-icon"></i><input type="text" placeholder="请输入账号" class="userName" @keyup.enter="goHome" :value="username" /></div>
-				<div><i class="login-password-icon"></i><input type="password" placeholder="请输入密码" class="passWord" @keyup.enter="goHome" :value="password" /></div>
+				<div><i class="login-username-icon"></i><input type="text" placeholder="请输入账号" class="userName" @keyup.enter="goHome" v-model="pLoginData.username" /></div>
+				<div><i class="login-password-icon"></i><input type="password" placeholder="请输入密码" class="passWord" @keyup.enter="goHome" v-model="pLoginData.password" /></div>
 				<div class="sub" @click="goHome">登录</div>
 			</div>
 			<div class="login-bg"></div>
@@ -17,18 +17,37 @@
 		name: 'HelloWorld',
 		data() {
 			return {
-				username: "",
-				password: ""
+				pLoginData: {
+					username: "管理员",
+					password: "123456"
+				}
 			}
 		},
 		methods: {
 			open() {
-				this.$message('这是一条消息提示');
+				
 			},
-			goHome() {
-				this.$router.push({
-					path: "/home"
-				})
+			goHome() {				
+				var that = this;
+				if(this.pLoginData.username.length<1)
+				 return this.$message('请填写账号');
+				if(this.pLoginData.password.length<1)
+				 return this.$message('请填写密码');
+				this.$axios({
+					method: 'post',
+					url: '/mgrsite/bgUser/login.do',
+					params: this.pLoginData,
+				}).then(res => {
+					console.log(res)
+					if(!res.data.success)
+						return that.$message(res.data.errorMsg);
+					this.$router.push({
+						path: "/home"
+					})
+				}).catch(res=>{
+					console.log(res)
+				});
+
 			}
 		}
 

@@ -99,3 +99,38 @@ h1 {
 	opacity: 0.5;
 	z-index: 10000;
 }
+/*input-box*/
+.input-box{
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	font-size: 14px;
+	color: #666;
+}
+.input-box>span{
+	width: 180px;
+	height: 40px;
+	line-height: 40px;
+	float: left;
+}
+.input-box>input{
+	float: left;
+	width: calc(100% - 180px);
+	border: 1px solid #ddd;
+	height: 28px;
+	line-height: 16px;
+	color: #6666;
+	text-indent: 20px;
+	font-size: 14px;
+	border-radius: 5px; 
+}
+.input-box>p{
+	float: left;
+	width: calc(100% - 180px);
+	height: 40px;
+	line-height: 40px;
+	color: #6666;
+	text-indent: 20px;
+	font-size: 14px;
+	border-radius: 5px; 
+}

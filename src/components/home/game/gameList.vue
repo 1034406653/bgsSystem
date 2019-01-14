@@ -2,7 +2,11 @@
 	<el-container>
 		<el-header class='header-menu'>游戏列表</el-header>
 		<el-main class='table-main'>
-			
+			<div class="search-box">
+				<div class="inputbox">
+					<el-button @click='addGame'>新增游戏</el-button>
+				</div>
+			</div>
 			<template>
 				<el-table :data="gameList" style="width: 100%" stripe>
 					<el-table-column prop="gid" label="ID">
@@ -14,7 +18,7 @@
 							<img :src="scope.row.photo" class="headPhoto" />
 						</template>
 					</el-table-column>
-					
+
 					<el-table-column prop="link" label="连接">
 					</el-table-column>
 					<el-table-column prop="text" label="文本信息">
@@ -39,7 +43,7 @@
 						<template slot-scope="scope">
 							<el-button size="mini">查看</el-button>
 						</template>
-					</el-table-column>					
+					</el-table-column>
 					<el-table-column label="操作" width='280'>
 						<template slot-scope="scope">
 							<el-button size="mini" @click="handleTop(scope.row)">置顶</el-button>
@@ -62,7 +66,7 @@
 	export default {
 		data() {
 			return {
-				
+
 				gameList: [],
 				pUserData: {
 					currentPage: 1,
@@ -72,7 +76,7 @@
 			}
 		},
 		mounted() {
-			
+
 			this.init();
 		},
 		methods: {
@@ -82,11 +86,11 @@
 					url: '/mgrsite/games.do',
 					params: this.pUserData,
 				}).then(res => {
-					console.log(res);
+
 					if(res.status == 200) {
 						this.totalCount = res.data.result.totalCount;
 						this.gameList = res.data.result.data;
-						
+
 					}
 				});
 			},
@@ -118,18 +122,18 @@
 				this.pUserData.currentPage = 1;
 				this.init();
 			},
-			handleBlock(userData) {
+			handleDown(gameData) {
 				let that = this;
-				this.$confirm('确定要禁用该用户吗?', '提示', {
+				this.$confirm('确定要下架该游戏吗?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
 					that.$axios({
 						method: 'post',
-						url: '/mgrsite/users/changeStatus.do',
+						url: '/mgrsite/games/changeStatus.do',
 						params: {
-							UID: userData.uid
+							gid: gameData.uid
 						},
 					}).then(res => {
 						if(res.data.success) {
@@ -151,17 +155,20 @@
 				});
 			},
 			handleRecover(userData) {
-				console.log(userData)
+				
 			},
-			
+			addGame() {
+
+			}
 		},
-		activated(){
-			if(this.$route.query.uid){
-				this.pUserData.keyword=this.$route.query.uid||'';
-				this.keyword=this.pUserData.keyword;
+		activated() {
+			if(this.$route.query.uid) {
+				this.pUserData.keyword = this.$route.query.uid || '';
+				this.keyword = this.pUserData.keyword;
 				this.init();
 			}
-		}
+		},
+
 	}
 </script>
 

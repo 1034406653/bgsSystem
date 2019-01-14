@@ -111,11 +111,12 @@
 						UID: userData.uid
 					},
 				}).then(res => {
-					if(res.status == 200) {
+					console.log(res);
+					/*if(res.status == 200) {
 						if(!res.data.success)
 							return this.$message(res.data.errorMsg);
 						this.$message('用户进行实名认证了');
-					}
+					}*/
 				});
 			},
 			searchKeyword() {
