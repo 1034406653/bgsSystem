@@ -16,10 +16,13 @@
 					<el-menu-item index="/home/user/userList">
 						<span>2.1、</span>
 						<span slot="title">用户列表</span>
-					</el-menu-item>
-					
-					<el-menu-item index="/home/user/agent">
+					</el-menu-item> 
+					<el-menu-item index="/home/user/inviter">
 						<span>2.2、</span>
+						<span slot="title">邀请好友</span>
+					</el-menu-item> 
+					<el-menu-item index="/home/user/agent">
+						<span>2.3、</span>
 						<span slot="title">代理人</span>
 					</el-menu-item>
 				</el-submenu>
@@ -32,32 +35,47 @@
 						<span>四、</span>
 						<span slot="title">钱包</span>
 					</template>
-					<el-menu-item index="/home/wallet/blockchain">
+					<el-menu-item index="/home/wallet/blockchainUser">
 						<span>4.1、</span>
-						<span slot="title">区块链钱包</span>
+						<span slot="title">区块链用户钱包</span>
 					</el-menu-item>
-					<el-menu-item index="/home/wallet/centralized">
+					<el-menu-item index="/home/wallet/blockchainDetails">
 						<span>4.2、</span>
+						<span slot="title">区块链钱包明细</span>
+					</el-menu-item>
+					<el-menu-item index="/home/wallet/centralizedUser">
+						<span>4.3、</span>
 						<span slot="title">中心化钱包</span>
 					</el-menu-item>
-					<el-menu-item index="/home/wallet/withdraw">
-						<span>4.3、</span>
-						<span slot="title">提现</span>
+					<el-menu-item index="/home/wallet/centralizedDetails">
+						<span>4.4、</span>
+						<span slot="title">中心化钱包明细</span>
+					</el-menu-item>
+					<el-menu-item index="/home/wallet/withdrawIng">
+						<span>4.5、</span>
+						<span slot="title">提现申请列表</span>
+					</el-menu-item>
+					<el-menu-item index="/home/wallet/withdrawSuccess">
+						<span>4.6、</span>
+						<span slot="title">提现成功列表</span>
+					</el-menu-item>
+					<el-menu-item index="/home/wallet/withdrawFalse">
+						<span>4.7、</span>
+						<span slot="title">提现失败列表</span>
 					</el-menu-item>
 				</el-submenu>
 				<el-submenu index="5">
-
 					<template slot="title">
 						<span>五、</span>
 						<span slot="title">金融</span>
 					</template>
 					<el-menu-item index="/home/finance/locked">
 						<span>5.1、</span>
-						<span slot="title">锁仓</span>
+						<span slot="title">锁仓订单</span>
 					</el-menu-item>
-					<el-menu-item index="/home/finance/agent">
+					<el-menu-item index="/home/finance/locking">
 						<span>5.2、</span>
-						<span slot="title">代理人</span>
+						<span slot="title">解仓列表</span>
 					</el-menu-item>
 				</el-submenu>
 				<el-submenu index="6">
@@ -85,12 +103,20 @@
 						<span>6.5、</span>
 						<span slot="title">文本列表</span>
 					</el-menu-item>
-					<el-menu-item index="/home/system/role">
+					<el-menu-item index="/home/system/bUserList">
 						<span>6.6、</span>
-						<span slot="title">角色与权限</span>
+						<span slot="title">用户列表</span>
+					</el-menu-item>
+					<el-menu-item index="/home/system/bRoleList">
+						<span>6.7、</span>
+						<span slot="title">角色列表</span>
+					</el-menu-item>
+					<el-menu-item index="/home/system/bMenuList">
+						<span>6.8、</span>
+						<span slot="title">菜单列表</span>
 					</el-menu-item>
 					<el-menu-item index="/home/system/operation_log">
-						<span>6.7、</span>
+						<span>6.9、</span>
 						<span slot="title">
 							后台操作日志
 						</span>
@@ -100,8 +126,9 @@
 		</el-aside>
 		<el-main>
 			<keep-alive>
-				<router-view/>
+				<router-view v-if="$route.meta.keepAlive"></router-view>
 			</keep-alive>
+			<router-view v-if="!$route.meta.keepAlive"></router-view>
 		</el-main>
 	</el-container>
 </template>

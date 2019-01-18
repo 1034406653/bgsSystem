@@ -29,7 +29,7 @@ Vue.prototype.$axios = axios;
 Vue.prototype.$baseURL = 'http://192.168.0.115';
 axios.defaults.baseURL = 'http://192.168.0.115';
 axios.defaults.withCredentials=true;
-axios.interceptors.request.use(config => {
+axios.interceptors.request.use(config =>{
 	let params = config.data || {};
 	config.data = qs.stringify(params);
 	config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -39,12 +39,11 @@ axios.interceptors.request.use(config => {
 });
 // 响应拦截器
 axios.interceptors.response.use(data => {
-	console.log(data)
 	if(data.data.errorMsg == "请登录") {
 		console.log("请求出问题了")
-		/*router.push({
+		router.push({
 			path: "/"
-		})*/
+		})
 	}
 	return data;
 }, error => {

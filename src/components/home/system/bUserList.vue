@@ -4,16 +4,21 @@
 		<el-main class='table-main'>
 			<div class="search-box">
 				<div class="inputbox">
-					<el-button @click="$router.push('/home/system/roleAdd')">创建后台账号</el-button>
+					<el-button @click="$router.push('/home/system/bUserAdd')">创建后台账号</el-button>
 				</div>
 			</div>
 			<template>
-				<el-table :data="roleList" style="width: 100%" stripe>
+				<el-table :data="bUserRoleList" style="width: 100%" stripe>
 					<el-table-column prop="bid" label="ID">
 					</el-table-column>
 					<el-table-column prop="username" label="用户名">
 					</el-table-column>
 					<el-table-column prop="realName" label="真实姓名">
+					</el-table-column>
+					<el-table-column label="角色">
+						<template slot-scope="scope">
+							<span>{{scope.row.rName}}</span>
+						</template>
 					</el-table-column>
 					<el-table-column label="状态">
 						<template slot-scope="scope">
@@ -29,7 +34,6 @@
 					</el-table-column>
 					<el-table-column label="操作" width="300px">
 						<template slot-scope="scope">
-							<el-button size="mini" @click="handleEdit(scope.row.bid)">编辑用户角色</el-button>
 							<el-button size="mini" type="danger" @click="handleRest(scope.row.bid)">重置密码</el-button>
 							<el-button size="mini" type="danger" @click="handleChangeState(scope.row.bid,1)" v-if='scope.row.state==0&&!scope.row.admin'>禁用</el-button>
 							<el-button size="mini" @click="handleChangeState(scope.row.bid,0)" v-if='scope.row.state==1'>恢复</el-button>
@@ -44,7 +48,7 @@
 	export default {
 		data() {
 			return {
-				roleList: [],
+				bUserRoleList: [],
 			}
 		},
 		mounted() {
@@ -59,25 +63,19 @@
 				}).then(res => {
 					console.log(res);
 					if(res.status == 200) {
-						that.roleList = res.data.result.data;
+						let dataList=res.data.result;
+						that.bUserRoleList = 
+						dataList.forEach((x,i)=>{
+							
+							if(x.roles[0]){
+								dataList[i].rName=x.roles[0].name;
+							}
+							
+						})
+						that.bUserRoleList=dataList;
 					}
 				}).catch(error => {
 					console.log(error);
-				});
-			},
-			handleEdit(bid) {
-				this.$axios({
-					method: 'get',
-					url: '/mgrsite/bgUser/editBgUserRole.do',
-					data: {
-						bid: bid,
-					},
-				}).then(res =>{
-					if(res.data.success) {
-						
-					} else {
-						that.$message(res.data.errorMsg);
-					}
 				});
 			},
 			handleRest(bid) {
@@ -141,9 +139,6 @@
 					});
 				});
 			},
-		},
-		activated() {
-
 		}
 	}
 </script>

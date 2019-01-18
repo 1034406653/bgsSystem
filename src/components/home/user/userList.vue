@@ -39,14 +39,14 @@
 					</el-table-column>
 					<el-table-column label="实名认证">
 						<template slot-scope="scope">
-							<el-button size="mini" @click="handleRealname(scope.row)" v-if='scope.row.status==2'>查看</el-button>
+							<el-button size="mini" @click="handleRealname(scope.row.uid)" v-if='scope.row.status==2'>查看</el-button>
 							<span v-if='scope.row.status==1'>否</span>
 						</template>
 					</el-table-column>
 					<el-table-column label="操作">
 						<template slot-scope="scope">
-							<el-button size="mini" type="danger" @click="handleBlock(scope.row)" v-if='scope.row.state==0'>禁用</el-button>
-							<el-button size="mini" @click="handleRecover(scope.row)" v-if='scope.row.state==1'>恢复</el-button>
+							<el-button size="mini" type="danger" @click="handleBlock(scope.row.uid)" v-if='scope.row.state==0'>禁用</el-button>
+							<el-button size="mini" @click="handleRecover(scope.row.uid)" v-if='scope.row.state==1'>恢复</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -55,8 +55,8 @@
 				<el-pagination @current-change="handleCurrentChange" :current-page.sync="pUserData.currentPage" :page-size="pUserData.pageSize" layout="prev, pager, next, jumper" :total="totalCount">
 				</el-pagination>
 			</div>
-			<div class="realName-box" v-if='realName.show'>
-				<div class="realNameHide" @click="realName.show=false">
+			<div class="modal-box" v-if='realName.show'>
+				<div class="modal-hide" @click="realName.show=false">
 					<i class="el-icon-close"></i>
 				</div>
 				<div class="input-box">
@@ -135,7 +135,7 @@
 						})
 					}
 				}).catch(error => {
-					console.log(error);					
+					console.log(error);
 				});
 			},
 			handleCurrentChange(val) {
@@ -147,17 +147,17 @@
 					method: 'get',
 					url: '/mgrsite/users/realAuth.do',
 					params: {
-						UID: userData.uid
+						UID: userData
 					},
 				}).then(res => {
 					console.log(res)
 					if(res.status == 200) {
 						if(!res.data.success)
 							return this.$message(res.data.errorMsg);
-						this.realName.realAuth=res.data.result;
-						this.realName.realAuth.idcardFront ='data:image/jpeg;base64,'+this.realName.realAuth.idcardFront;
-						this.realName.realAuth.idcardBack ='data:image/jpeg;base64,'+this.realName.realAuth.idcardFront;
-						this.realName.show=true;
+						this.realName.realAuth = res.data.result;
+						this.realName.realAuth.idcardFront = 'data:image/jpeg;base64,' + this.realName.realAuth.idcardFront;
+						this.realName.realAuth.idcardBack = 'data:image/jpeg;base64,' + this.realName.realAuth.idcardFront;
+						this.realName.show = true;
 					}
 				});
 			},
@@ -172,6 +172,7 @@
 				this.init();
 			},
 			handleBlock(userData) {
+				console.log(userData);
 				let that = this;
 				this.$confirm('确定要禁用该用户吗?', '提示', {
 					confirmButtonText: '确定',
@@ -182,10 +183,11 @@
 						method: 'post',
 						url: '/mgrsite/users/changeStatus.do',
 						params: {
-							UID: userData.uid,
+							UID: userData,
 							state: 1,
 						},
 					}).then(res => {
+						console.log(res);
 						if(res.data.success) {
 							that.init();
 							that.$message({
@@ -204,6 +206,7 @@
 				});
 			},
 			handleRecover(userData) {
+				console.log(userData);
 				let that = this;
 				this.$confirm('确定要解禁该用户吗?', '提示', {
 					confirmButtonText: '确定',
@@ -214,7 +217,7 @@
 						method: 'post',
 						url: '/mgrsite/users/changeStatus.do',
 						params: {
-							UID: userData.uid,
+							UID: userData,
 							state: 0,
 						},
 					}).then(res => {
@@ -248,35 +251,4 @@
 </script>
 
 <style scoped="scoped">
-	.headPhoto {
-		width: 60px;
-		height: 60px;
-		display: inline-block;
-	}
-	
-	.realName-box {
-		width: 800px;
-		height: auto;
-		position: fixed;
-		top: 100px;
-		left: 50%;
-		margin-left: -400px;
-		background: #fff;
-		z-index: 10001;
-		box-shadow: 0px 0px 10px #ddd;
-		padding: 40px;
-	}
-	
-	.realNameHide {
-		position: absolute;
-		right: 14px;
-		top: 14px;
-		width: 30px;
-		height: 30px;
-		color: #aaa;
-		font-size: 26px;
-		line-height: 30px;
-		text-align: center;
-		cursor: pointer;
-	}
 </style>

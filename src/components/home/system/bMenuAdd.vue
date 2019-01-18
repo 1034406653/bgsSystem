@@ -1,5 +1,4 @@
 <template>
-	<p>代理人</p>
 </template>
 
 <script>

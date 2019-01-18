@@ -35,11 +35,18 @@ h1 {
 	box-shadow: 0px 1px 3px #ddd;
 	color: #333;
 }
-.table-main{
+
+.table-main {
 	box-shadow: 0px 1px 3px #ddd;
 	margin-top: 20px;
 }
-.export2Excel{
+
+.headPhoto {
+	width: 60px;
+	display: inline-block;
+}
+
+.export2Excel {
 	width: auto;
 	float: left;
 	padding: 0 20px;
@@ -50,21 +57,24 @@ h1 {
 	margin: 2px 4px;
 	border: 1px solid #dcdfe6;
 	border-radius: 13px;
-	 
 }
+
 .export2Excel:hover {
-    background: #81b4e830;
-    color: #81b4e8;
-    border: 1px solid #81b4e850;
+	background: #81b4e830;
+	color: #81b4e8;
+	border: 1px solid #81b4e850;
 }
-.pagination-box{
+
+.pagination-box {
 	margin-top: 10px;
 }
+
+
 /*表格*/
 
 .cell {
 	text-align: center;
-}       
+}
 
 .search-box {
 	width: 100%;
@@ -72,14 +82,16 @@ h1 {
 	overflow: hidden;
 	padding: 10px 0;
 }
-.inputbox{
+
+.inputbox {
 	float: left;
 	width: auto;
 	height: auto;
 	overflow: hidden;
 	float: right;
 }
-.inputbox input{
+
+.inputbox input {
 	width: 200px;
 	border: 1px solid #ddd;
 	font-size: 14px;
@@ -89,7 +101,8 @@ h1 {
 	text-indent: 10px;
 	border-radius: 10px;
 }
-.mark-box-lxl{
+
+.mark-box-lxl {
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -97,23 +110,28 @@ h1 {
 	right: 0;
 	background: #000000;
 	opacity: 0.5;
-	z-index: 10000;
+	z-index: 100;
 }
+
+
 /*input-box*/
-.input-box{
+
+.input-box {
 	width: 100%;
 	height: auto;
 	overflow: hidden;
 	font-size: 14px;
 	color: #666;
 }
-.input-box>span{
+
+.input-box>span {
 	width: 180px;
 	height: 40px;
 	line-height: 40px;
 	float: left;
 }
-.input-box>input{
+
+.input-box>input {
 	float: left;
 	width: calc(100% - 180px);
 	border: 1px solid #ddd;
@@ -122,9 +140,10 @@ h1 {
 	color: #6666;
 	text-indent: 20px;
 	font-size: 14px;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
-.input-box>p{
+
+.input-box>p {
 	float: left;
 	width: calc(100% - 180px);
 	height: 40px;
@@ -132,5 +151,98 @@ h1 {
 	color: #6666;
 	text-indent: 20px;
 	font-size: 14px;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
+
+
+/*弹出框*/
+
+.modal-box {
+	width: 800px;
+	height: auto;
+	position: fixed;
+	top: 100px;
+	left: 50%;
+	margin-left: -400px;
+	background: #fff;
+	z-index: 101;
+	box-shadow: 0px 0px 10px #ddd;
+	padding: 40px;
+}
+
+.modal-hide {
+	position: absolute;
+	right: 14px;
+	top: 14px;
+	width: 30px;
+	height: 30px;
+	color: #aaa;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+/*下级列表*/
+
+.lowerList-box {
+	width: 800px;
+	height: auto;
+	position: fixed;
+	top: 100px;
+	left: 50%;
+	margin-left: -400px;
+	background: #fff;
+	z-index: 10001;
+	box-shadow: 0px 0px 10px #ddd;
+	padding: 40px;
+}
+
+.lowerListHide {
+	position: absolute;
+	right: 14px;
+	top: 14px;
+	width: 30px;
+	height: 30px;
+	color: #aaa;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.lowerList-box ul.listTd {
+	max-height: 500px;
+	overflow: auto;
+}
+
+.lowerList-box ul li {
+	width: 100%;
+	height: auto;
+	line-height: 30px;
+	color: #666;
+	font-size: 14px;
+	text-align: center;
+	overflow: hidden;
+}
+
+.lowerList-box ul.listTd li:nth-of-type(2n+1) {
+	background: #ededed;
+}
+
+.lowerList-box ul.listTh li {
+	font-size: 16px;
+	line-height: 50px;
+}
+
+.lowerList-box ul li span {
+	width: 25%;
+	float: left;
+}
+
+
+/*富文本*/
+.ql-container{
+		min-height: 500px;
+	}

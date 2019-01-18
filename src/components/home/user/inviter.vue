@@ -1,6 +1,6 @@
 <template>
 	<el-container>
-		<el-header class='header-menu'>代理人</el-header>
+		<el-header class='header-menu'>邀请好友</el-header>
 		<el-main class='table-main'>
 			<div class="search-box">
 				<a :href="export2Excel" class="export2Excel">导出Excel</a>
@@ -12,24 +12,18 @@
 			</div>
 			<template>
 				<el-table :data="inviteList" style="width: 100%" stripe>
-					<el-table-column label="UID">
+					<el-table-column label="用户名">
 						<template slot-scope="scope">
-							<span @click="navUserList(scope.row.phoneNumber)" style="cursor: pointer;">{{scope.row.uid}}</span>
+							<span @click="navUserList(scope.row.phoneNumber)" style="cursor: pointer;">{{scope.row.nickName}}</span>
 						</template>
-					</el-table-column>
-					<el-table-column prop="createdTime" label="成为代理人时间">
-					</el-table-column>
-					<el-table-column prop="nickName" label="用户名">
 					</el-table-column>
 					<el-table-column prop="phoneNumber" label="手机号">
 					</el-table-column>
 					<el-table-column prop="lowerAmount" label="下级人数">
 					</el-table-column>
-					<el-table-column prop="totalIncome" label="收益">
-					</el-table-column>
 					<el-table-column label="下级列表">
 						<template slot-scope="scope">
-							<el-button size="mini" @click="handleWatch(scope.row.uid)">查看列表</el-button>
+							<el-button size="mini" @click="handleWatch(scope.row.inviterID)">查看列表</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -74,14 +68,14 @@
 			}
 		},
 		mounted() {
-			this.export2Excel = this.$baseURL + '/mgrsite/users/agents/exportData.do';
+			this.export2Excel = this.$baseURL + '/mgrsite/users/inviters/exportData.do';
 			this.init();
 		},
 		methods: {
 			init() {
 				this.$axios({
 					method: 'get',
-					url: '/mgrsite/users/agents.do',
+					url: '/mgrsite/users/inviters.do',
 					params: this.pInviteData,
 				}).then(res => {
 					console.log(res);
@@ -102,22 +96,6 @@
 			handleCurrentChange(val) {
 				this.init();
 			},
-			handleRealname(userData) {
-				this.$axios({
-					method: 'get',
-					url: '/mgrsite/users/realAuth.do',
-					params: {
-						UID: userData.uid
-					},
-				}).then(res => {
-					console.log(res);
-					/*if(res.status == 200) {
-						if(!res.data.success)
-							return this.$message(res.data.errorMsg);
-						this.$message('用户进行实名认证了');
-					}*/
-				});
-			},
 			searchKeyword() {
 				this.pInviteData.keyword = this.keyword;
 				this.init();
@@ -128,15 +106,14 @@
 				this.pInviteData.currentPage = 1;
 				this.init();
 			},
-			handleWatch(userData) {
-				console.log(userData);
+			handleWatch(inviterID) {
 				this.$axios({
 					method: 'get',
-					url: '/mgrsite/users/agentlowers.do',
+					url: '/mgrsite/users/lowers.do',
 					params: {
 						currentPage: 1,
 						pageSize: 1000,
-						agentUID: userData,
+						inviterID: inviterID,
 					},
 				}).then(res => {
 					console.log(res)
@@ -159,5 +136,4 @@
 </script>
 
 <style scoped="scoped">
-	
 </style>

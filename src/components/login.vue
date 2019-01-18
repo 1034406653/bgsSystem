@@ -11,10 +11,10 @@
 		</div>
 	</div>
 </template>
-
 <script>
 	export default {
-		name: 'HelloWorld',
+		name: 'Login',
+		props:['Login'],
 		data() {
 			return {
 				pLoginData: {
@@ -24,10 +24,7 @@
 			}
 		},
 		methods: {
-			open() {
-				
-			},
-			goHome() {				
+			goHome(){				
 				var that = this;
 				if(this.pLoginData.username.length<1)
 				 return this.$message('请填写账号');
@@ -38,19 +35,17 @@
 					url: '/mgrsite/bgUser/login.do',
 					params: this.pLoginData,
 				}).then(res => {
-					console.log(res)
 					if(!res.data.success)
 						return that.$message(res.data.errorMsg);
+						this.Login.username=res.data.result.username;
 					this.$router.push({
 						path: "/home"
 					})
 				}).catch(res=>{
 					console.log(res)
 				});
-
 			}
 		}
-
 	}
 </script>
 
@@ -164,28 +159,5 @@
 		border: none;
 		cursor: pointer;
 		margin-top: 50px;
-	}
-	
-	.forget-password {
-		position: absolute;
-		color: #fff;
-		width: auto;
-		height: 14px;
-		line-height: 14px;
-		cursor: pointer;
-		left: 370px;
-		top: 364px;
-		z-index: 1;
-	}
-	
-	.message {
-		position: absolute;
-		left: 48px;
-		bottom: 80px;
-		width: auto;
-		height: 100px;
-		color: red;
-		font-size: 16px;
-		z-index: 10000;
 	}
 </style>
