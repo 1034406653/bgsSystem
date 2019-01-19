@@ -9,15 +9,9 @@
 			</div>
 			<template>
 				<el-table :data="bRoleLimitList" style="width: 100%" stripe>
-					<el-table-column prop="rid" label="角色ID">
-					</el-table-column>
-					<el-table-column prop="sn" label="角色编号">
-					</el-table-column>
 					<el-table-column prop="name" label="角色名称">
 					</el-table-column>
-					<el-table-column prop="permissions" label="权限">
-					</el-table-column>
-					<el-table-column prop="menus" label="菜单">
+					<el-table-column prop="menus" label="菜单" >	
 					</el-table-column>
 					<el-table-column label="操作" width="300px">
 						<template slot-scope="scope">
@@ -47,16 +41,21 @@
 					method: 'get',
 					url: '/mgrsite/rolePage.do',
 				}).then(res => {
-					console.log(res);
+					console.log(res.data.result);
 					if(res.status == 200) {
-						that.bRoleLimitList = res.data.result;
+						let listData=res.data.result;
+						listData.forEach(function(x,i){
+							let menuList='';
+							listData[i].menus.forEach((y,z)=>{
+								menuList+=y.text+',';
+							})
+							listData[i].menus=menuList;
+						})
+						that.bRoleLimitList = listData;
 					}
 				}).catch(error => {
 					console.log(error);
 				});
-			},
-			handleRest(bid) {
-				
 			},
 			handleDelete(rid){
 				this.$confirm('确定要删除该角色吗?', '提示', {
@@ -78,7 +77,7 @@
 							});
 							this.init();
 						} else {
-							that.$message(res.data.errorMsg);
+							this.$message(res.data.errorMsg);
 						}
 					});
 				}).catch(() => {

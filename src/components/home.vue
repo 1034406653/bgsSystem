@@ -111,10 +111,10 @@
 						<span>6.7、</span>
 						<span slot="title">角色列表</span>
 					</el-menu-item>
-					<el-menu-item index="/home/system/bMenuList">
+					<!--<el-menu-item index="/home/system/bMenuList">
 						<span>6.8、</span>
 						<span slot="title">菜单列表</span>
-					</el-menu-item>
+					</el-menu-item>-->
 					<el-menu-item index="/home/system/operation_log">
 						<span>6.9、</span>
 						<span slot="title">

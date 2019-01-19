@@ -87,8 +87,8 @@
 					return this.$message('请填写游戏名称');
 				if(this.pGameAddData.photo.length < 1)
 					return this.$message('请上传游戏图标');
-				if(this.pGameAddData.link.length < 1)
-					return this.$message('请填写游戏连接');
+				/*if(this.pGameAddData.link.length < 1)
+					return this.$message('请填写游戏连接');*/
 				if(this.pGameAddData.text.length < 1)
 					return this.$message('请填写游戏备注');
 				this.$axios({

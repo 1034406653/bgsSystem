@@ -88,7 +88,7 @@ export default new Router({
 					name: 'Game_gameList',
 					component: Game_gameList,
 					meta: {
-						keepAlive: true
+						keepAlive: false
 					}
 				},
 				{

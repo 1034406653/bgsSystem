@@ -35,6 +35,7 @@
 					url: '/mgrsite/bgUser/login.do',
 					params: this.pLoginData,
 				}).then(res => {
+					console.log(res);
 					if(!res.data.success)
 						return that.$message(res.data.errorMsg);
 						this.Login.username=res.data.result.username;

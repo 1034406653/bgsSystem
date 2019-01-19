@@ -2,23 +2,17 @@
 	<el-container>
 		<el-header class='header-menu'>新增角色</el-header>
 		<el-main class='table-main'>
+			
 			<div class="input-box">
-				<span>用户名</span>
-				<input type="text" v-model="pRoleAddData.username" />
+				<span>角色名称</span>
+				<input type="text" v-model="pRoleAddData.name" />
 			</div>
 			<div class="input-box">
-				<span>密码</span>
-				<input type="text" v-model="pRoleAddData.password" />
-			</div>
-			<div class="input-box">
-				<span>真实姓名</span>
-				<input type="text" v-model="pRoleAddData.realName" />
-			</div>
-			<div class="input-box" v-if="menuListShow">
 				<span>选择菜单</span>
-				<el-checkbox-group v-model="checkedMenus" @change="handleCheckedCitiesChange">
-					<el-checkbox v-for="city in menus" :label="city" :key="city">{{city}}</el-checkbox>
-				</el-checkbox-group>
+				<div class="menuTree">
+					<el-tree :data="data2" show-checkbox node-key="mid" ref="tree" highlight-current :props="defaultProps">
+					</el-tree>
+				</div>
 			</div>
 			<el-button type="primary" @click="addRole">提交</el-button>
 		</el-main>
@@ -32,16 +26,14 @@
 				pRoleAddData: {
 					sn: '0',
 					name: "",
-					pids: [],
-					mids: [],
+					mids: '',
 				},
-				pRoleAddDataRid: "",
-				menuListShow: false,
-				menuList: [],
-				/*复选*/
-				checkedMenus: ['上海', '北京'],
-				menus: ['上海', '北京', '广州', '深圳'],
-				isIndeterminate: true
+				/*选择菜单*/
+				data2: [],
+				defaultProps: {
+					children: 'children',
+					label: 'text'
+				},
 			}
 		},
 		mounted() {
@@ -52,35 +44,35 @@
 				this.$axios({
 					method: 'get',
 					url: '/mgrsite/menuPage.do',
-					params:{
-						currentPage:1,
-						pageSize:100,
+					params: {
+						currentPage: 1,
+						pageSize: 100,
 					}
 				}).then(res => {
 					console.log(res);
-					
+					if(res.status == 200) {
+						this.data2 = res.data.result.data;
+					}
 				});
 			},
 			addRole() {
-				if(this.pRoleAddData.username.length < 1)
-					return this.$message('请填写用户名');
-				if(this.pRoleAddData.password.length < 1)
-					return this.$message('请填写密码');
-				if(this.pRoleAddData.realName.length < 1)
-					return this.$message('真实姓名');
-				if(this.pRoleAddData.rid.length < 1)
-					return this.$message('请选择用户角色');
+				this.pRoleAddData.mids=this.$refs.tree.getCheckedKeys().join(',');
+				console.log(this.pRoleAddData);
+				if(this.pRoleAddData.name.length < 1)
+					return this.$message('请填写用角色名称');
+				if(this.pRoleAddData.mids.length < 1)
+					return this.$message('请选择至少一个菜单');
 				this.$axios({
 					method: 'post',
 					url: '/mgrsite/role/saveOrUpdate.do',
-					data: this.pRoleAddData,
+					params: this.pRoleAddData,
 				}).then(res => {
 					if(res.data.success) {
 						this.$message({
 							type: 'success',
 							message: res.data.result
 						});
-						this.$router.push('/home/system/bUserRole')
+						this.$router.push('/home/system/bRoleList')
 					} else {
 						this.$message(res.data.errorMsg);
 					}
@@ -88,42 +80,36 @@
 					this.$message(res);
 				});
 			},
-			/*复选*/
-			handleCheckedCitiesChange(value) {
-				let checkedCount = value.length;
-				this.isIndeterminate = checkedCount > 0 && checkedCount < this.menus.length;
-			}
 		}
 	}
 </script>
 
 <style scoped="scoped">
 	.input-box {
-		width: 600px;
+		width: 100%;
 		margin: 0 auto;
 		margin-bottom: 20px;
 		position: relative;
+		padding: 0 40px;
 	}
 	
 	.input-box span {
-		width: 100px;
+		width: 150px;
 	}
 	
 	.input-box input {
-		width: calc( 100% - 101px);
+		width: calc( 100% - 151px);
+		max-width: 500px;
 		margin-top: 6px;
 		color: #333;
 	}
 	
-	.input-box textarea {
-		width: calc( 100% - 101px);
-		height: 100px;
-		padding: 10px 20px;
+	.input-box .menuTree {
+		width: calc( 100% - 151px);
+		max-width: 500px;
+		margin-top: 6px;
 		color: #333;
-		font-size: 14px;
-		border: 1px solid #ddd;
-		border-radius: 5px;
-		outline: none;
+		display: inline-block;
 	}
 	
 	.input-box label {
