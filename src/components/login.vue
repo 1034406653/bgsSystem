@@ -18,10 +18,13 @@
 		data() {
 			return {
 				pLoginData: {
-					username: "管理员",
-					password: "123456"
+					username: "",
+					password: ""
 				}
 			}
+		},
+		mounted(){
+			this.Login.username = '';
 		},
 		methods: {
 			goHome() {
