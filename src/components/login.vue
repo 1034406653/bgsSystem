@@ -24,6 +24,7 @@
 			}
 		},
 		mounted(){
+			window.localStorage.removeItem('username');
 			this.Login.username = '';
 		},
 		methods: {
