@@ -40,7 +40,7 @@ axios.interceptors.request.use(config =>{
 // 响应拦截器
 axios.interceptors.response.use(data => {
 	if(data.data.errorMsg == "请登录") {
-		console.log("请求出问题了")
+		window.localStorage.removeItem('username');
 		router.push({
 			path: "/"
 		})

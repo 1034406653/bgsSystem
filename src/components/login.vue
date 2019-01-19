@@ -14,7 +14,7 @@
 <script>
 	export default {
 		name: 'Login',
-		props:['Login'],
+		props: ['Login'],
 		data() {
 			return {
 				pLoginData: {
@@ -24,12 +24,12 @@
 			}
 		},
 		methods: {
-			goHome(){				
+			goHome() {
 				var that = this;
-				if(this.pLoginData.username.length<1)
-				 return this.$message('请填写账号');
-				if(this.pLoginData.password.length<1)
-				 return this.$message('请填写密码');
+				if(this.pLoginData.username.length < 1)
+					return this.$message('请填写账号');
+				if(this.pLoginData.password.length < 1)
+					return this.$message('请填写密码');
 				this.$axios({
 					method: 'post',
 					url: '/mgrsite/bgUser/login.do',
@@ -38,11 +38,19 @@
 					console.log(res);
 					if(!res.data.success)
 						return that.$message(res.data.errorMsg);
-						this.Login.username=res.data.result.username;
-					this.$router.push({
-						path: "/home"
+					let menusLxl = [];
+					res.data.result.roles[0].menus.forEach((x, i) => {
+						menusLxl.push(x.mid)
 					})
-				}).catch(res=>{
+					this.Login.username = res.data.result.username;
+					setTimeout(() => {
+						window.localStorage.setItem("username", res.data.result.username);
+						window.localStorage.setItem("menusLxl", menusLxl);
+						this.$router.push({
+							path: "/home"
+						})
+					},500)
+				}).catch(res => {
 					console.log(res)
 				});
 			}

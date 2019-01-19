@@ -16,10 +16,7 @@
 			</div>
 		</el-header>
 		<el-main>
-			<keep-alive>
-				<router-view v-if="$route.meta.keepAlive"></router-view>
-			</keep-alive>
-			<router-view :Login="ParData" v-if="!$route.meta.keepAlive"></router-view>
+			<router-view :Login="ParData"></router-view>
 		</el-main>
 		<div class="modal-box password-box" v-if='changePassword.show'>
 			<div class="modal-hide" @click="changePassword.show=false">
@@ -53,6 +50,9 @@
 				}
 			}
 		},
+		mounted(){
+			this.ParData.username=window.localStorage.getItem('username') || '';
+		},
 		methods: {
 			logout() {
 				this.$axios({
@@ -62,6 +62,7 @@
 				}).then(res => {
 					if(!res.data.success)
 						return that.$message(res.data.errorMsg);
+					window.localStorage.removeItem('username');
 					this.$message({
 						type: 'success',
 						message: res.data.result

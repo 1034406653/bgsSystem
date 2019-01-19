@@ -2,124 +2,104 @@
 	<el-container class="mainPage">
 		<el-aside width="200px" class="mainPage-left">
 			<el-menu :default-active="$route.path" class="el-menu-vertical-demo" :unique-opened="isunique" :router="isrouter" text-color="#808080" active-text-color="#409eff">
-				<el-menu-item index="/home/index/index">
+				<el-submenu index="1" v-if='menus.mid1'>
 					<template slot="title">
-						<span>一、</span>
 						<span slot="title">主页</span>
 					</template>
-				</el-menu-item>
-				<el-submenu index="2">
+					<el-menu-item index="/home/index/index">
+						<span slot="title">个人中心</span>
+					</el-menu-item>
+				</el-submenu>
+				<el-submenu index="2" v-if='menus.mid2'>
 					<template slot="title">
-						<span>二、</span>
 						<span slot="title">用户</span>
 					</template>
-					<el-menu-item index="/home/user/userList">
-						<span>2.1、</span>
+					<el-menu-item index="/home/user/userList" v-if='menus.mid10'>
 						<span slot="title">用户列表</span>
-					</el-menu-item> 
-					<el-menu-item index="/home/user/inviter">
-						<span>2.2、</span>
+					</el-menu-item>
+					<el-menu-item index="/home/user/inviter" v-if='menus.mid11'>
 						<span slot="title">邀请好友</span>
-					</el-menu-item> 
-					<el-menu-item index="/home/user/agent">
-						<span>2.3、</span>
+					</el-menu-item>
+					<el-menu-item index="/home/user/agent" v-if='menus.mid12'>
 						<span slot="title">代理人</span>
 					</el-menu-item>
 				</el-submenu>
-				<el-menu-item index="/home/game/gameList">
-					<span>三、</span>
-					<span slot="title">游戏</span>
-				</el-menu-item>
-				<el-submenu index="4">
+				<el-submenu index="3" v-if='menus.mid3'>
 					<template slot="title">
-						<span>四、</span>
-						<span slot="title">钱包</span>
+						<span slot="title">游戏管理</span>
 					</template>
-					<el-menu-item index="/home/wallet/blockchainUser">
-						<span>4.1、</span>
-						<span slot="title">区块链用户钱包</span>
-					</el-menu-item>
-					<el-menu-item index="/home/wallet/blockchainDetails">
-						<span>4.2、</span>
-						<span slot="title">区块链钱包明细</span>
-					</el-menu-item>
-					<el-menu-item index="/home/wallet/centralizedUser">
-						<span>4.3、</span>
-						<span slot="title">中心化钱包</span>
-					</el-menu-item>
-					<el-menu-item index="/home/wallet/centralizedDetails">
-						<span>4.4、</span>
-						<span slot="title">中心化钱包明细</span>
-					</el-menu-item>
-					<el-menu-item index="/home/wallet/withdrawIng">
-						<span>4.5、</span>
-						<span slot="title">提现申请列表</span>
-					</el-menu-item>
-					<el-menu-item index="/home/wallet/withdrawSuccess">
-						<span>4.6、</span>
-						<span slot="title">提现成功列表</span>
-					</el-menu-item>
-					<el-menu-item index="/home/wallet/withdrawFalse">
-						<span>4.7、</span>
-						<span slot="title">提现失败列表</span>
+					<el-menu-item index="/home/game/gameList" v-if='menus.mid13'>
+						<span slot="title">游戏列表</span>
 					</el-menu-item>
 				</el-submenu>
-				<el-submenu index="5">
+				<el-submenu index="4" v-if='menus.mid4'>
 					<template slot="title">
-						<span>五、</span>
-						<span slot="title">金融</span>
+						<span slot="title">链上钱包</span>
 					</template>
-					<el-menu-item index="/home/finance/locked">
-						<span>5.1、</span>
+					<el-menu-item index="/home/walletChain/blockchainUser" v-if='menus.mid14'>
+						<span slot="title">用户钱包</span>
+					</el-menu-item>
+					<el-menu-item index="/home/walletChain/blockchainDetails" v-if='menus.mid15'>
+						<span slot="title">钱包明细</span>
+					</el-menu-item>
+				</el-submenu>
+				<el-submenu index="5" v-if='menus.mid5'>
+					<template slot="title">
+						<span slot="title">中心钱包</span>
+					</template>
+					<el-menu-item index="/home/walletCentralized/centralizedUser" v-if='menus.mid16'>
+						<span slot="title">用户钱包</span>
+					</el-menu-item>
+					<el-menu-item index="/home/walletCentralized/centralizedDetails" v-if='menus.mid17'>
+						<span slot="title">钱包明细</span>
+					</el-menu-item>
+				</el-submenu>
+				<el-submenu index="6" v-if='menus.mid6'>
+					<template slot="title">
+						<span slot="title">提现管理</span>
+					</template>
+					<el-menu-item index="/home/withdraw/withdrawIng" v-if='menus.mid18'>
+						<span slot="title">申请列表</span>
+					</el-menu-item>
+					<el-menu-item index="/home/withdraw/withdrawSuccess" v-if='menus.mid19'>
+						<span slot="title">审核成功</span>
+					</el-menu-item>
+					<el-menu-item index="/home/withdraw/withdrawFalse" v-if='menus.mid20'>
+						<span slot="title">审核失败</span>
+					</el-menu-item>
+				</el-submenu>
+				<el-submenu index="7" v-if='menus.mid7'>
+					<template slot="title">
+						<span slot="title">锁仓管理</span>
+					</template>
+					<el-menu-item index="/home/finance/locked" v-if='menus.mid21'>
 						<span slot="title">锁仓订单</span>
 					</el-menu-item>
-					<el-menu-item index="/home/finance/locking">
-						<span>5.2、</span>
+					<el-menu-item index="/home/finance/locking" v-if='menus.mid22'>
 						<span slot="title">解仓列表</span>
 					</el-menu-item>
 				</el-submenu>
-				<el-submenu index="6">
+				<el-submenu index="8" v-if='menus.mid8'>
 					<template slot="title">
-						<span>六、</span>
 						<span slot="title">系统管理</span>
 					</template>
-					<el-menu-item index="/home/system/basic">
-						<span>6.1、</span>
-						<span slot="title">基本设置</span>
-					</el-menu-item>
-					<el-menu-item index="/home/system/function">
-						<span>6.2、</span>
-						<span slot="title">功能设置</span>
-					</el-menu-item>
-					<el-menu-item index="/home/system/notification">
-						<span>6.3、</span>
-						<span slot="title">消息推送</span>
-					</el-menu-item>
-					<el-menu-item index="/home/system/feedback">
-						<span>6.4、</span>
-						<span slot="title">用户反馈</span>
-					</el-menu-item>
-					<el-menu-item index="/home/system/textList">
-						<span>6.5、</span>
+					<el-menu-item index="/home/system/textList" v-if='menus.mid23'>
 						<span slot="title">文本列表</span>
 					</el-menu-item>
-					<el-menu-item index="/home/system/bUserList">
-						<span>6.6、</span>
-						<span slot="title">用户列表</span>
+					<el-menu-item index="/home/system/function" v-if='menus.mid24'>
+						<span slot="title">功能设置</span>
 					</el-menu-item>
-					<el-menu-item index="/home/system/bRoleList">
-						<span>6.7、</span>
-						<span slot="title">角色列表</span>
+					<el-menu-item index="/home/system/feedback" v-if='menus.mid25'>
+						<span slot="title">用户反馈</span>
 					</el-menu-item>
-					<!--<el-menu-item index="/home/system/bMenuList">
-						<span>6.8、</span>
-						<span slot="title">菜单列表</span>
-					</el-menu-item>-->
-					<el-menu-item index="/home/system/operation_log">
-						<span>6.9、</span>
-						<span slot="title">
-							后台操作日志
-						</span>
+					<el-menu-item index="/home/system/bUserList" v-if='menus.mid26'>
+						<span slot="title">后台用户</span>
+					</el-menu-item>
+					<el-menu-item index="/home/system/bRoleList" v-if='menus.mid27'>
+						<span slot="title">角色管理</span>
+					</el-menu-item>
+					<el-menu-item index="/home/system/operation_log" v-if='menus.mid30'>
+						<span slot="title">系统日志</span>
 					</el-menu-item>
 				</el-submenu>
 			</el-menu>
@@ -132,7 +112,6 @@
 		</el-main>
 	</el-container>
 </template>
-
 <script>
 	export default {
 		data() {
@@ -140,10 +119,46 @@
 				'routerPath': '/home/index/index',
 				'isunique': true,
 				'isrouter': true,
+				'menus': {},
 			}
 		},
 		mounted() {
-
+			this.menus = {
+				"mid1": false,
+				"mid2": false,
+				"mid3": false,
+				"mid4": false,
+				"mid5": false,
+				"mid6": false,
+				"mid7": false,
+				"mid8": false,
+				"mid9": false,
+				"mid10": false,
+				"mid11": false,
+				"mid12": false,
+				"mid13": false,
+				"mid14": false,
+				"mid15": false,
+				"mid16": false,
+				"mid17": false,
+				"mid18": false,
+				"mid19": false,
+				"mid20": false,
+				"mid21": false,
+				"mid22": false,
+				"mid23": false,
+				"mid24": false,
+				"mid25": false,
+				"mid26": false,
+				"mid27": false,
+				"mid28": false,
+				"mid29": false,
+			}
+			let menusLxl = window.localStorage.getItem('menusLxl');
+			menusLxl.split(',').forEach((x, i) => {
+				let midName = 'mid' + x;
+				this.menus[midName] = true;
+			})
 		},
 		methods: {
 			menuInit() {

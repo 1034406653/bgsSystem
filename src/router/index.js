@@ -9,13 +9,13 @@ import User_agent from '@/components/home/user/agent'
 import Game_gameList from '@/components/home/game/gameList'
 import Game_gameAdd from '@/components/home/game/gameAdd'
 import Game_gameChange from '@/components/home/game/gameChange'
-import Wallet_blockchainUser from '@/components/home/wallet/blockchainUser'
-import Wallet_blockchainDetails from '@/components/home/wallet/blockchainDetails'
-import Wallet_centralizedUser from '@/components/home/wallet/centralizedUser'
-import Wallet_centralizedDetails from '@/components/home/wallet/centralizedDetails'
-import Wallet_withdrawIng from '@/components/home/wallet/withdrawIng'
-import Wallet_withdrawSuccess from '@/components/home/wallet/withdrawSuccess'
-import Wallet_withdrawFalse from '@/components/home/wallet/withdrawFalse'
+import Wallet_blockchainUser from '@/components/home/walletChain/blockchainUser'
+import Wallet_blockchainDetails from '@/components/home/walletChain/blockchainDetails'
+import Wallet_centralizedUser from '@/components/home/walletCentralized/centralizedUser'
+import Wallet_centralizedDetails from '@/components/home/walletCentralized/centralizedDetails'
+import Wallet_withdrawIng from '@/components/home/withdraw/withdrawIng'
+import Wallet_withdrawSuccess from '@/components/home/withdraw/withdrawSuccess'
+import Wallet_withdrawFalse from '@/components/home/withdraw/withdrawFalse'
 import Finance_locked from '@/components/home/finance/locked'
 import Finance_locking from '@/components/home/finance/locking'
 import System_basic from '@/components/home/system/basic'
@@ -109,7 +109,7 @@ export default new Router({
 				},
 				/*钱包*/
 				{
-					path: '/home/wallet/blockchainUser',
+					path: '/home/walletChain/blockchainUser',
 					name: 'Wallet_blockchainUser',
 					component: Wallet_blockchainUser,
 					meta: {
@@ -117,7 +117,7 @@ export default new Router({
 					}
 				},
 				{
-					path: '/home/wallet/blockchainDetails',
+					path: '/home/walletChain/blockchainDetails',
 					name: 'Wallet_blockchainDetails',
 					component: Wallet_blockchainDetails,
 					meta: {
@@ -125,7 +125,7 @@ export default new Router({
 					}
 				},
 				{
-					path: '/home/wallet/centralizedUser',
+					path: '/home/walletCentralized/centralizedUser',
 					name: 'Wallet_centralizedUser',
 					component: Wallet_centralizedUser,
 					meta: {
@@ -133,7 +133,7 @@ export default new Router({
 					}
 				},
 				{
-					path: '/home/wallet/centralizedDetails',
+					path: '/home/walletCentralized/centralizedDetails',
 					name: 'Wallet_centralizedDetails',
 					component: Wallet_centralizedDetails,
 					meta: {
@@ -141,7 +141,7 @@ export default new Router({
 					}
 				},
 				{
-					path: '/home/wallet/withdrawIng',
+					path: '/home/withdraw/withdrawIng',
 					name: 'Wallet_withdrawIng',
 					component: Wallet_withdrawIng,
 					meta: {
@@ -149,7 +149,7 @@ export default new Router({
 					}
 				},
 				{
-					path: '/home/wallet/withdrawSuccess',
+					path: '/home/withdraw/withdrawSuccess',
 					name: 'Wallet_withdrawSuccess',
 					component: Wallet_withdrawSuccess,
 					meta: {
@@ -157,7 +157,7 @@ export default new Router({
 					}
 				},
 				{
-					path: '/home/wallet/withdrawFalse',
+					path: '/home/withdraw/withdrawFalse',
 					name: 'Wallet_withdrawFalse',
 					component: Wallet_withdrawFalse,
 					meta: {
