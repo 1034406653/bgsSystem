@@ -1,9 +1,9 @@
 <template>
 	<el-container>
-		<el-header class='header-menu'>区块链钱包明细</el-header>
+		<el-header class='header-menu'>钱包明细</el-header>
 		<el-main class='table-main'>
+			<a :href="export2Excel" class="export2Excel">导出Excel</a>
 			<div class="search-box">
-				<a :href="export2Excel" class="export2Excel">导出Excel</a>
 				<template>
 					<span style="color: #666;font-size: 14px;margin-left: 40px;">转账类型：</span>
 					<el-select v-model="pBlockchainDetailsData.transferType">
@@ -80,16 +80,16 @@
 				},
 				totalCount: 10,
 				keyword: "",
-				transferType: "链上钱包转到中心钱包",
+				transferType: "链上中心转账--链上钱包转到中心钱包",
 				transferTypeList: [{
 					value: '1',
-					label: '链上钱包转到中心钱包'
+					label: '链上中心转账--链上钱包转到中心钱包'
 				}, {
 					value: '2',
-					label: '链上钱包转到链上钱包'
+					label: '链上链上转账--链上钱包转到链上钱包'
 				}, {
 					value: '3',
-					label: '链上钱包锁入中心钱包'
+					label: '锁仓支出--链上钱包锁入中心钱包'
 				}, {
 					value: '4',
 					label: 'Dapp游戏支出'
@@ -98,10 +98,13 @@
 					label: '购买代理人支出'
 				}, {
 					value: '6',
-					label: '买EOS的RAM支出'
+					label: '质押EOS的RAM支出'
 				}, {
 					value: '7',
-					label: '买EOS的CPU和NET支出'
+					label: '质押EOS的CPU支出'
+				}, {
+					value: '8',
+					label: '质押EOS的NET支出'
 				}]
 			}
 		},
@@ -153,8 +156,15 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pBlockchainDetailsData.keyword = '';
-				this.pBlockchainDetailsData.currentPage = 1;
+				this.pBlockchainDetailsData={
+					currentPage: 1,
+					pageSize: 10,
+					keyword: '',
+					transferType: "1",
+					beginDate:"",
+					endDate:"",
+				};
+				this.pTime='';
 				this.init();
 			},
 		},

@@ -3,13 +3,16 @@
 		<el-header class='header-menu'>解仓列表</el-header>
 		<el-main class='table-main'>
 			<div class="search-box">
-
 				<template>
 					<span style="color: #666;font-size: 14px;margin-left: 40px;"></span>
 					<el-select v-model="pLockingData.tokenType">
 						<el-option v-for="item in tokenTypeList" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
+				</template>
+				<template>
+					<el-date-picker v-model="pTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="timePick">
+					</el-date-picker>
 				</template>
 				<div class="inputbox">
 					<input type="text" placeholder="手机号/用户名筛选" v-model="keyword" />
@@ -74,6 +77,8 @@
 					pageSize: 10,
 					keyword: '',
 					tokenType: "",
+					beginDate:"",
+					endDate:"",
 				},
 				totalCount: 10,
 				keyword: "",
@@ -86,10 +91,28 @@
 				}, {
 					value: '3',
 					label: 'BGS'
-				}]
+				}],
+				pTime: "",
+				timePick: {
+					disabledDate(time) {
+						return time.getTime() > Date.now();
+					},
+				},
 			}
 		},
 		watch: {
+			pTime: {
+				handler: function(val, oldval) {
+					if(val){
+						this.pLockingData.beginDate=val[0].toLocaleString().split(' ')[0].replace("/","-").replace("/","-");
+						this.pLockingData.endDate=val[1].toLocaleString().split(' ')[0].replace("/","-").replace("/","-");
+					}else{
+						this.pLockingData.beginDate='';
+						this.pLockingData.endDate='';
+					}
+				},
+				deep: true
+			},
 			pLockingData: {
 				handler: function(val, oldval) {
 					this.init();
@@ -98,7 +121,6 @@
 			},
 		},
 		mounted() {
-
 			this.init();
 		},
 		methods: {
@@ -109,7 +131,6 @@
 					url: '/mgrsite/waitUnlockOrder.do',
 					params: this.pLockingData,
 				}).then(res => {
-					console.log(res);
 					if(res.status == 200) {
 						that.totalCount = res.data.result.totalCount;
 						that.lockingList = res.data.result.data;
@@ -128,16 +149,21 @@
 				this.pLockingData.currentPage = val;
 				this.init();
 			},
-
 			searchKeyword() {
 				this.pLockingData.keyword = this.keyword;
 				this.init();
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pLockingData.keyword = '';
-				this.pLockingData.currentPage = 1;
-				this.pLockingData.tokenType = '';
+				this.pLockingData={
+					currentPage: 1,
+					pageSize: 10,
+					keyword: '',
+					tokenType: "",
+					beginDate:"",
+					endDate:"",
+				}
+				this.pTime='';
 				this.init();
 			},
 		}

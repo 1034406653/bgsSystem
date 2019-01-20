@@ -167,8 +167,11 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pUserData.keyword = '';
-				this.pUserData.currentPage = 1;
+				this.pUserData={
+					currentPage: 1,
+					pageSize: 5,
+					keyword: '',
+				};
 				this.init();
 			},
 			handleBlock(userData) {

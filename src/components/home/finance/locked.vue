@@ -2,14 +2,18 @@
 	<el-container>
 		<el-header class='header-menu'>锁仓订单</el-header>
 		<el-main class='table-main'>
+			<a :href="export2Excel" class="export2Excel">导出Excel</a>
 			<div class="search-box">
-				<a :href="export2Excel" class="export2Excel">导出Excel</a>
 				<template>
 					<span style="color: #666;font-size: 14px;margin-left: 40px;"></span>
 					<el-select v-model="pLockedData.tokenType">
 						<el-option v-for="item in tokenTypeList" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
+				</template>
+				<template>
+					<el-date-picker v-model="pTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="timePick">
+					</el-date-picker>
 				</template>
 				<div class="inputbox">
 					<input type="text" placeholder="手机号/用户名筛选" v-model="keyword" />
@@ -33,7 +37,7 @@
 					</el-table-column>
 					<el-table-column prop="amount" label="锁仓金额">
 					</el-table-column>
-					
+
 					<el-table-column label="收益">
 						<template slot-scope="scope">
 							<span>{{scope.row.finalProfit}}</span>
@@ -77,7 +81,9 @@
 					currentPage: 1,
 					pageSize: 10,
 					keyword: '',
-					tokenType:"",
+					tokenType: "",
+					beginDate: "",
+					endDate: "",
 				},
 				totalCount: 10,
 				keyword: "",
@@ -90,11 +96,29 @@
 				}, {
 					value: '3',
 					label: 'BGS'
-				}]
+				}],
+				pTime: "",
+				timePick: {
+					disabledDate(time) {
+						return time.getTime() > Date.now();
+					},
+				},
 			}
 		},
-		watch:{
-				pLockedData:{
+		watch: {
+			pTime: {
+				handler: function(val, oldval) {
+					if(val) {
+						this.pLockedData.beginDate = val[0].toLocaleString().split(' ')[0].replace("/", "-").replace("/", "-");
+						this.pLockedData.endDate = val[1].toLocaleString().split(' ')[0].replace("/", "-").replace("/", "-");
+					} else {
+						this.pLockedData.beginDate = '';
+						this.pLockedData.endDate = '';
+					}
+				},
+				deep: true
+			},
+			pLockedData: {
 				handler: function(val, oldval) {
 					this.init();
 				},
@@ -133,9 +157,15 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pLockedData.keyword = '';
-				this.pLockedData.currentPage = 1;
-				this.pLockedData.tokenType = '';
+				this.pLockedData = {
+					currentPage: 1,
+					pageSize: 10,
+					keyword: '',
+					tokenType: "",
+					beginDate: "",
+					endDate: "",
+				}
+				this.pTime = '';
 				this.init();
 			},
 		}
@@ -143,5 +173,5 @@
 </script>
 
 <style scoped="scoped">
-	
+
 </style>

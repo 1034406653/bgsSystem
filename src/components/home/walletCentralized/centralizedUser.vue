@@ -1,10 +1,9 @@
 <template>
 	<el-container>
-		<el-header class='header-menu'>中心钱包</el-header>
+		<el-header class='header-menu'>用户钱包</el-header>
 		<el-main class='table-main'>
 			<div class="search-box">
 				<a :href="export2Excel" class="export2Excel">导出Excel</a>
-				
 				<div class="inputbox">
 					<input type="text" placeholder="手机号/昵称筛选" v-model="keyword" />
 					<el-button icon="el-icon-search" circle @click='searchKeyword'></el-button>
@@ -90,8 +89,11 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pCentralizedData.keyword = '';
-				this.pCentralizedData.currentPage = 1;
+				this.pCentralizedData={
+					currentPage: 1,
+					pageSize: 8,
+					keyword: '',
+				};
 				this.init();
 			},
 		},

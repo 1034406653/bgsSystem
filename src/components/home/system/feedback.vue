@@ -16,11 +16,11 @@
 					</el-table-column>
 					<el-table-column prop="content" label="反馈内容">
 					</el-table-column>
-					<el-table-column label="操作">
+					<!--<el-table-column label="操作">
 						<template slot-scope="scope">
 							<el-button size="mini" @click='handleDeal'>处理</el-button>
 						</template>
-					</el-table-column>
+					</el-table-column>-->
 				</el-table>
 			</template>
 			<div class="pagination-box">

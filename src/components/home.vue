@@ -2,14 +2,14 @@
 	<el-container class="mainPage">
 		<el-aside width="200px" class="mainPage-left">
 			<el-menu :default-active="$route.path" class="el-menu-vertical-demo" :unique-opened="isunique" :router="isrouter" text-color="#808080" active-text-color="#409eff">
-				<el-submenu index="1" v-if='menus.mid1'>
+			<!--	<el-submenu index="1" v-if='menus.mid1'>
 					<template slot="title">
 						<span slot="title">主页</span>
 					</template>
 					<el-menu-item index="/home/index/index">
 						<span slot="title">个人中心</span>
 					</el-menu-item>
-				</el-submenu>
+				</el-submenu>-->
 				<el-submenu index="2" v-if='menus.mid2'>
 					<template slot="title">
 						<span slot="title">用户</span>
@@ -83,11 +83,11 @@
 					<template slot="title">
 						<span slot="title">系统管理</span>
 					</template>
+					<el-menu-item index="/home/system/function" v-if='menus.mid24'>
+						<span slot="title">基础设置</span>
+					</el-menu-item>
 					<el-menu-item index="/home/system/textList" v-if='menus.mid23'>
 						<span slot="title">文本列表</span>
-					</el-menu-item>
-					<el-menu-item index="/home/system/function" v-if='menus.mid24'>
-						<span slot="title">功能设置</span>
 					</el-menu-item>
 					<el-menu-item index="/home/system/feedback" v-if='menus.mid25'>
 						<span slot="title">用户反馈</span>

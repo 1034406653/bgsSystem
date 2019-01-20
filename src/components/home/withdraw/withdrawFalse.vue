@@ -1,15 +1,19 @@
 <template>
 	<el-container>
-		<el-header class='header-menu'>提现成功列表</el-header>
+		<el-header class='header-menu'>审核失败</el-header>
 		<el-main class='table-main'>
+			<a :href="export2Excel" class="export2Excel">导出Excel</a>
 			<div class="search-box">
 				<template>
-					<a :href="export2Excel" class="export2Excel">导出Excel</a>
 					<span style="color: #666;font-size: 14px; margin-left: 40px;">货币类型：</span>
 					<el-select v-model="pWithdrawSuccessData.tokenType">
 						<el-option v-for="item in tokenTypeList" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
+				</template>
+				<template>
+					<el-date-picker v-model="pTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="timePick">
+					</el-date-picker>
 				</template>
 				<div class="inputbox">
 					<input type="text" placeholder="手机号/昵称筛选" v-model="keyword" />
@@ -56,12 +60,12 @@
 					currentPage: 1,
 					pageSize: 8,
 					keyword: '',
-					beginDate:"",
-					endDate:"",
-					tokenType:"",
+					beginDate: "",
+					endDate: "",
+					tokenType: "",
 				},
 				totalCount: 8,
-				keyword:"",
+				keyword: "",
 				tokenTypeList: [{
 					value: '1',
 					label: 'ETH'
@@ -71,12 +75,30 @@
 				}, {
 					value: '3',
 					label: 'BGS'
-				}]
-				
+				}],
+				pTime: "",
+				timePick: {
+					disabledDate(time) {
+						return time.getTime() > Date.now();
+					},
+				},
+
 			}
 		},
-		watch:{
-				pWithdrawSuccessData:{
+		watch: {
+			pTime: {
+				handler: function(val, oldval) {
+					if(val) {
+						this.pWithdrawSuccessData.beginDate = val[0].toLocaleString().split(' ')[0].replace("/", "-").replace("/", "-");
+						this.pWithdrawSuccessData.endDate = val[1].toLocaleString().split(' ')[0].replace("/", "-").replace("/", "-");
+					} else {
+						this.pWithdrawSuccessData.beginDate = '';
+						this.pWithdrawSuccessData.endDate = '';
+					}
+				},
+				deep: true
+			},
+			pWithdrawSuccessData: {
 				handler: function(val, oldval) {
 					this.init();
 				},
@@ -110,13 +132,20 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pWithdrawSuccessData.keyword = '';
-				this.pWithdrawSuccessData.currentPage = 1;
-				this.pWithdrawSuccessData.tokenType = '';
+				this.pWithdrawSuccessData = {
+					currentPage: 1,
+					pageSize: 8,
+					keyword: '',
+					beginDate: "",
+					endDate: "",
+					tokenType: "",
+				}
+				this.pTime='';
 				this.init();
 			},
 		},
 	}
 </script>
 <style scoped="scoped">
+
 </style>

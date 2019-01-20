@@ -18,12 +18,10 @@ import Wallet_withdrawSuccess from '@/components/home/withdraw/withdrawSuccess'
 import Wallet_withdrawFalse from '@/components/home/withdraw/withdrawFalse'
 import Finance_locked from '@/components/home/finance/locked'
 import Finance_locking from '@/components/home/finance/locking'
-import System_basic from '@/components/home/system/basic'
 import System_feedback from '@/components/home/system/feedback'
 import System_function from '@/components/home/system/function'
 import System_notification from '@/components/home/system/notification'
 import System_operation_log from '@/components/home/system/operation_log'
-import System_role from '@/components/home/system/role'
 import System_bUserList from '@/components/home/system/bUserList'
 import System_bUserAdd from '@/components/home/system/bUserAdd'
 import System_bRoleList from '@/components/home/system/bRoleList'
@@ -35,7 +33,6 @@ import System_textAdd from '@/components/home/system/textAdd'
 import System_textChange from '@/components/home/system/textChange'
 
 Vue.use(Router)
-
 export default new Router({
 	routes: [{
 			path: '/',
@@ -46,7 +43,7 @@ export default new Router({
 			path: '/home',
 			name: 'Home',
 			component: Home,
-			redirect: '/home/index/index',
+			redirect: '/home/user/userList',
 			children: [
 				/*首页*/
 				{
@@ -182,14 +179,6 @@ export default new Router({
 					}
 				},
 				/*系统管理*/
-				{
-					path: '/home/system/basic',
-					name: 'System_basic',
-					component: System_basic,
-					meta: {
-						keepAlive: true
-					}
-				},
 				{
 					path: '/home/system/feedback',
 					name: 'System_feedback',

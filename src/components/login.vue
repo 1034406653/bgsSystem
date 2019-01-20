@@ -39,7 +39,6 @@
 					url: '/mgrsite/bgUser/login.do',
 					params: this.pLoginData,
 				}).then(res => {
-					console.log(res);
 					if(!res.data.success)
 						return that.$message(res.data.errorMsg);
 					let menusLxl = [];
@@ -49,6 +48,7 @@
 					this.Login.username = res.data.result.username;
 					setTimeout(() => {
 						window.localStorage.setItem("username", res.data.result.username);
+						window.localStorage.setItem("realName", res.data.result.realName);
 						window.localStorage.setItem("menusLxl", menusLxl);
 						this.$router.push({
 							path: "/home"

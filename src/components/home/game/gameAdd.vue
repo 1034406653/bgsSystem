@@ -8,7 +8,7 @@
 			</div>
 			<div class="input-box">
 				<span>游戏图标</span>
-				<input class="gamePic" ref="inputer" type="file" accept="image/png, image/jpg" @change="handleFileChange($event)" />
+				<input class="gamePic" ref="inputer" type="file" accept="image/png, image/jpeg" @change="handleFileChange($event)" />
 				<div class="gamePicBtn"> 选择图片</div>
 				<b>请选用正方形图片，宽高150px左右，格式jpg,png</b>
 			</div>
@@ -56,9 +56,11 @@
 			handleFileChange(event) {
 				let that = this;
 				let imgFile = event.currentTarget.files[0];
-
+				if(!imgFile)
+					return false;
 				let imgType = imgFile.type.split('/')[1];
-				if(imgType == 'png' || imgType == 'jpg' || imgType == 'JPG' || imgType == 'PNG') {
+				console.log(imgType);
+				if(imgType == 'png' || imgType == 'jpg' || imgType == 'JPG' || imgType == 'jpeg' || imgType == 'JPEG' || imgType == 'PNG') {
 					let reader = new FileReader();
 					reader.readAsDataURL(imgFile);
 					reader.onload = function(e) {
@@ -87,8 +89,8 @@
 					return this.$message('请填写游戏名称');
 				if(this.pGameAddData.photo.length < 1)
 					return this.$message('请上传游戏图标');
-				/*if(this.pGameAddData.link.length < 1)
-					return this.$message('请填写游戏连接');*/
+				if(this.pGameAddData.link.length < 1)
+					return this.$message('请填写游戏连接');
 				if(this.pGameAddData.text.length < 1)
 					return this.$message('请填写游戏备注');
 				this.$axios({

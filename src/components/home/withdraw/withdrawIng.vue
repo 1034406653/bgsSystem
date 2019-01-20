@@ -1,6 +1,6 @@
 <template>
 	<el-container>
-		<el-header class='header-menu'>提现申请列表</el-header>
+		<el-header class='header-menu'>申请列表</el-header>
 		<el-main class='table-main'>
 			<div class="search-box">
 				<template>
@@ -9,6 +9,10 @@
 						<el-option v-for="item in tokenTypeList" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
 					</el-select>
+				</template>
+				<template>
+					<el-date-picker v-model="pTime" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="timePick">
+					</el-date-picker>
 				</template>
 				<div class="inputbox">
 					<input type="text" placeholder="手机号/昵称筛选" v-model="keyword" />
@@ -20,7 +24,9 @@
 				<el-table :data="withdrawIngList" style="width: 100%" stripe>
 					<el-table-column prop="createdTime" label="时间">
 					</el-table-column>
-					<el-table-column prop="uid" label="UID">
+					<el-table-column prop="uid" label="UID(用户ID)">
+					</el-table-column>
+					<el-table-column prop="uid" label="WID(提现ID)">
 					</el-table-column>
 					<el-table-column prop="nickName" label="昵称">
 					</el-table-column>
@@ -33,11 +39,11 @@
 							<span v-if="scope.row.tokenType=='3'">BGS</span>
 						</template>
 					</el-table-column>
-					<el-table-column prop="amount" label="金额">
+					<el-table-column prop="amount" label="数量">
 					</el-table-column>
 					<el-table-column label="操作">
 						<template slot-scope="scope">
-							<el-button size="mini"  @click="handleCheck(scope.row)">审核</el-button>
+							<el-button size="mini" @click="handleCheck(scope.row)">审核</el-button>
 						</template>
 					</el-table-column>
 				</el-table>
@@ -59,12 +65,12 @@
 					currentPage: 1,
 					pageSize: 8,
 					keyword: '',
-					beginDate:"",
-					endDate:"",
-					tokenType:"",
+					beginDate: "",
+					endDate: "",
+					tokenType: "",
 				},
 				totalCount: 8,
-				keyword:"",
+				keyword: "",
 				tokenTypeList: [{
 					value: '1',
 					label: 'ETH'
@@ -74,12 +80,29 @@
 				}, {
 					value: '3',
 					label: 'BGS'
-				}]
-				
+				}],
+				pTime: "",
+				timePick: {
+					disabledDate(time) {
+						return time.getTime() > Date.now();
+					},
+				},
 			}
 		},
-		watch:{
-				pWithdrawIngData:{
+		watch: {
+			pTime: {
+				handler: function(val, oldval) {
+					if(val) {
+						this.pWithdrawIngData.beginDate = val[0].toLocaleString().split(' ')[0].replace("/", "-").replace("/", "-");
+						this.pWithdrawIngData.endDate = val[1].toLocaleString().split(' ')[0].replace("/", "-").replace("/", "-");
+					} else {
+						this.pWithdrawIngData.beginDate = '';
+						this.pWithdrawIngData.endDate = '';
+					}
+				},
+				deep: true
+			},
+			pWithdrawIngData: {
 				handler: function(val, oldval) {
 					this.init();
 				},
@@ -112,16 +135,66 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pWithdrawIngData.keyword = '';
-				this.pWithdrawIngData.currentPage = 1;
-				this.pWithdrawIngData.tokenType = '';
+				this.pWithdrawIngData = {
+					currentPage: 1,
+					pageSize: 8,
+					keyword: '',
+					beginDate: "",
+					endDate: "",
+					tokenType: "",
+				}
+				this.pTime = '';
 				this.init();
 			},
-			handleCheck(){
-				this.$message('没有接口');
+			handleCheck(itemData) {
+				console.log(itemData);
+				let pCheckData = {};
+				pCheckData.UID = itemData.uid;
+				pCheckData.WID = itemData.wid;
+				pCheckData.tokenType = itemData.tokenType;
+				pCheckData.tokenAmount = itemData.amount;
+				if(pCheckData.tokenType == 1) {
+					pCheckData.gasPrice = 0.00010
+				}
+				if(pCheckData.tokenType == 2) {
+					pCheckData.gasPrice = 0
+				}
+				if(pCheckData.tokenType == 3) {
+					pCheckData.gasPrice = 0.00027
+				}
+				pCheckData.auditor = window.localStorage.getItem('realName') || '找不到用户真实姓名';
+				this.$prompt('填写备注，点击确定完成审核', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+				}).then(({
+					value
+				}) => {
+					pCheckData.remark = value || '无备注';
+					this.$axios({
+						method: 'post',
+						url: 'http://18.222.109.30:80/cWallet/withdraw.do',
+						data: pCheckData,
+					}).then(res => {
+						console.log(res);
+						this.$message({
+							type: 'success',
+							message: '审核成功'
+						});
+						this.init();
+					}).catch(error => {
+						this.$message(error);
+					});
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '取消输入'
+					});
+				});
+
 			}
 		},
 	}
 </script>
 <style scoped="scoped">
+
 </style>

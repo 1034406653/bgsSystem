@@ -1,9 +1,9 @@
 <template>
 	<el-container>
-		<el-header class='header-menu'>中心钱包明细</el-header>
+		<el-header class='header-menu'>钱包明细</el-header>
 		<el-main class='table-main'>
+			<a :href="export2Excel" class="export2Excel">导出Excel</a>
 			<div class="search-box">
-				<a :href="export2Excel" class="export2Excel">导出Excel</a>
 				<template>
 					<span style="color: #666;font-size: 14px;margin-left: 40px;">转账类型：</span>
 					<el-select v-model="pCentralizedDetailsData.transferType">
@@ -68,7 +68,7 @@
 					currentPage: 1,
 					pageSize: 10,
 					keyword: '',
-					transferType: "8",
+					transferType: "9",
 					beginDate:"",
 					endDate:"",
 				},
@@ -80,22 +80,31 @@
 				},
 				totalCount: 10,
 				keyword: "",
-				transferType: "链上钱包转到中心钱包",
+				transferType: "提现支出（最小限额）--中心钱包转到链上钱包 ",
 				transferTypeList: [{
-					value: '8',
-					label: '中心钱包转到链上钱包'
-				}, {
 					value: '9',
-					label: '注册获得BGS'
+					label: '提现支出（最小限额）--中心钱包转到链上钱包 '
 				}, {
 					value: '10',
-					label: '邀请获得BGS '
+					label: '提现收入 --链上到链上 '
 				}, {
 					value: '11',
-					label: '锁仓获得收益'
+					label: '注册获得BGS'
 				}, {
 					value: '12',
+					label: '邀请获得BGS'
+				}, {
+					value: '13',
+					label: '锁仓获得收益'
+				}, {
+					value: '14',
 					label: '代理获得收益'
+				}, {
+					value: '15',
+					label: '旷工费支出'
+				}, {
+					value: '16',
+					label: '提现失败退回金额收入'
 				}]
 			}
 		},
@@ -147,8 +156,15 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pCentralizedDetailsData.keyword = '';
-				this.pCentralizedDetailsData.currentPage = 1;
+				this.pCentralizedDetailsData={
+					currentPage: 1,
+					pageSize: 10,
+					keyword: '',
+					transferType: "9",
+					beginDate:"",
+					endDate:"",
+				}
+				this.pTime='';
 				this.init();
 			},
 		},

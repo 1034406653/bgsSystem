@@ -2,7 +2,6 @@
 	<el-container>
 		<el-header class='header-menu'>新增角色</el-header>
 		<el-main class='table-main'>
-			
 			<div class="input-box">
 				<span>角色名称</span>
 				<input type="text" v-model="pRoleAddData.name" />
