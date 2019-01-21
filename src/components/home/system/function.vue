@@ -1,6 +1,9 @@
 <template>
 	<el-container>
 		<el-header class='header-menu'>基础设置</el-header>
+		<div class="search-box">
+			<el-button @click='handleWalletBack'>钱包回收</el-button>
+		</div>
 		<el-main class='table-main'>
 			<template>
 				<el-table :data="bFunctionList" style="width: 100%" stripe>
@@ -44,12 +47,12 @@
 		data() {
 			return {
 				bFunctionList: [],
-				changeConfig:{
-					show:false,
-					config:{
-						confName:"",
-						confValue:"",
-						explain:"",
+				changeConfig: {
+					show: false,
+					config: {
+						confName: "",
+						confValue: "",
+						explain: "",
 					}
 				}
 			}
@@ -66,36 +69,63 @@
 				}).then(res => {
 					console.log(res);
 					if(res.status == 200) {
-						this.bFunctionList=res.data.result;
+						this.bFunctionList = res.data.result;
 					}
 				}).catch(error => {
 					console.log(error);
 				});
 			},
-			handleConfig(config){
-				this.changeConfig.config=config;
-				this.changeConfig.show=true;
+			handleConfig(config) {
+				this.changeConfig.config = config;
+				this.changeConfig.show = true;
 			},
-			handleChangeConfig(){
+			handleChangeConfig() {
 				if(!this.changeConfig.config.confValue)
 					return this.$message('请填写参数');
 				this.$axios({
 					method: 'post',
 					url: '/mgrsite/updateConf.do',
-					data:{
-						confName:this.changeConfig.config.confName,
-						confValue:this.changeConfig.config.confValue,
+					data: {
+						confName: this.changeConfig.config.confName,
+						confValue: this.changeConfig.config.confValue,
 					},
 				}).then(res => {
 					if(res.status == 200) {
 						this.$message({
-								type: 'success',
-								message: res.data.result
+							type: 'success',
+							message: res.data.result
 						});
-						this.changeConfig.show=false;
+						this.changeConfig.show = false;
 					}
 				}).catch(error => {
 					console.log(error);
+				});
+			},
+			handleWalletBack() {
+				this.$confirm('确定要回收钱包吗?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$axios({
+						method: 'post',
+						url: '/mgrsite/recycleEOSWallet.do',
+					}).then(res => {
+						console.log(res);
+						if(res.data.status==0) {
+							this.$message({
+								type: 'success',
+								message: '操作成功'
+							});
+						} else {
+							this.$message(res.data.msg);
+						}
+					});
+				}).catch(() => {
+					that.$message({
+						type: 'info',
+						message: '已取消'
+					});
 				});
 			}
 		}

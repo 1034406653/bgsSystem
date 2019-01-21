@@ -119,6 +119,7 @@
 					url: '/mgrsite/withdrawMoney/apply.do',
 					params: this.pWithdrawIngData,
 				}).then(res => {
+					console.log(res)
 					this.totalCount = res.data.result.totalCount;
 					this.withdrawIngList = res.data.result.data;
 				}).catch(error => {
@@ -172,7 +173,7 @@
 					pCheckData.remark = value || '无备注';
 					this.$axios({
 						method: 'post',
-						url: 'http://18.222.109.30:80/cWallet/withdraw.do',
+						url: '/mgrsite/withdrawMoney/audit.do',
 						data: pCheckData,
 					}).then(res => {
 						console.log(res);

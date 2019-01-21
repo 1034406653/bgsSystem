@@ -45,7 +45,6 @@ export default new Router({
 			component: Home,
 			redirect: '/home/user/userList',
 			children: [
-				/*首页*/
 				{
 					path: '/home/index/index',
 					name: 'Index',
@@ -54,7 +53,6 @@ export default new Router({
 						keepAlive: true
 					}
 				},
-				/*用户*/
 				{
 					path: '/home/user/userList',
 					name: 'User_userList',

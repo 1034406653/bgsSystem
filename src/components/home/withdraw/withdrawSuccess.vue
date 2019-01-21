@@ -23,7 +23,11 @@
 			</div>
 			<template>
 				<el-table :data="withdrawSuccessList" style="width: 100%" stripe>
-					<el-table-column prop="createdTime" label="时间">
+					<el-table-column prop="auditTime" label="审核时间">
+					</el-table-column>
+					<el-table-column prop="auditor" label="审核人">
+					</el-table-column>
+					<el-table-column prop="createdTime" label="申请时间">
 					</el-table-column>
 					<el-table-column prop="uid" label="UID">
 					</el-table-column>
@@ -116,6 +120,7 @@
 					url: '/mgrsite/withdrawMoney/pass.do',
 					params: this.pWithdrawSuccessData,
 				}).then(res => {
+					console.log(res);
 					this.totalCount = res.data.result.totalCount;
 					this.withdrawSuccessList = res.data.result.data;
 				}).catch(error => {
