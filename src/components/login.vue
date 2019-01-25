@@ -39,16 +39,14 @@
 					url: '/mgrsite/bgUser/login.do',
 					params: this.pLoginData,
 				}).then(res => {
+					console.log(res)
 					if(!res.data.success)
 						return that.$message(res.data.errorMsg);
-					let menusLxl = [];
-					res.data.result.roles[0].menus.forEach((x, i) => {
-						menusLxl.push(x.mid)
-					})
-					this.Login.username = res.data.result.username;
+					let menusLxl = res.data.result.menuIds;
+					this.Login.username = res.data.result.bgUser.username;
 					setTimeout(() => {
-						window.localStorage.setItem("username", res.data.result.username);
-						window.localStorage.setItem("realName", res.data.result.realName);
+						window.localStorage.setItem("username", res.data.result.bgUser.username);
+						window.localStorage.setItem("realName", res.data.result.bgUser.realName);
 						window.localStorage.setItem("menusLxl", menusLxl);
 						this.$router.push({
 							path: "/home"

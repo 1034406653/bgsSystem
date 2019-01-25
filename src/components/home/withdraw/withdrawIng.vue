@@ -63,13 +63,13 @@
 				withdrawIngList: [],
 				pWithdrawIngData: {
 					currentPage: 1,
-					pageSize: 8,
+					pageSize: 6,
 					keyword: '',
 					beginDate: "",
 					endDate: "",
 					tokenType: "",
 				},
-				totalCount: 8,
+				totalCount: 6,
 				keyword: "",
 				tokenTypeList: [{
 					value: '1',
@@ -138,7 +138,7 @@
 				this.keyword = '';
 				this.pWithdrawIngData = {
 					currentPage: 1,
-					pageSize: 8,
+					pageSize: 6,
 					keyword: '',
 					beginDate: "",
 					endDate: "",

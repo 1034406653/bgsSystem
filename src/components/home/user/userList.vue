@@ -27,7 +27,7 @@
 					</el-table-column>
 					<el-table-column prop="invitedCode" label="邀请码">
 					</el-table-column>
-					<el-table-column prop="inviter" label="邀请人">
+					<el-table-column prop="inviter" label="邀请人UID">
 					</el-table-column>
 					<el-table-column prop="isAgency" label="代理人">
 					</el-table-column>
@@ -93,10 +93,10 @@
 				userList: [],
 				pUserData: {
 					currentPage: 1,
-					pageSize: 5,
+					pageSize: 6,
 					keyword: '',
 				},
-				totalCount: 10,
+				totalCount: 6,
 				keyword: "",
 				realName: {
 					show: false,
@@ -127,9 +127,6 @@
 						that.totalCount = res.data.result.totalCount;
 						that.userList = res.data.result.data;
 						that.userList.forEach((x, i) => {
-							/*头像*/
-							that.userList[i].headPhoto = 'data:image/jpeg;base64,' + x.headPhoto;
-							/*性别*/
 							if(x.sex == 0) that.userList[i].sex = '女';
 							if(x.sex == 1) that.userList[i].sex = '男';
 						})
@@ -169,7 +166,7 @@
 				this.keyword = '';
 				this.pUserData={
 					currentPage: 1,
-					pageSize: 5,
+					pageSize: 6,
 					keyword: '',
 				};
 				this.init();

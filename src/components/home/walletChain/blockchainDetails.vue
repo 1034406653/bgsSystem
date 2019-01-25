@@ -35,10 +35,11 @@
 					</el-table-column>
 					<el-table-column prop="amount" label="数量">
 					</el-table-column>
-					<el-table-column prop="status" label="状态">
+					<el-table-column label="状态">
 						<template slot-scope="scope">
-							<span v-if="scope.row.status=='0'">成功</span>
-							<span v-if="scope.row.status=='1'">失败</span>
+							<span v-if="scope.row.status==1" >进行中</span>
+							<span v-if="scope.row.status==2" >成功</span>
+							<span v-if="scope.row.status==3" >失败</span>
 						</template>
 					</el-table-column>
 					<el-table-column label="货币类型">
@@ -66,7 +67,7 @@
 				blockchainDetailsList: [],
 				pBlockchainDetailsData: {
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					transferType: "1",
 					beginDate:"",
@@ -78,7 +79,7 @@
 						return time.getTime() > Date.now();
 					},
 				},
-				totalCount: 10,
+				totalCount: 6,
 				keyword: "",
 				transferType: "链上中心转账--链上钱包转到中心钱包",
 				transferTypeList: [{
@@ -158,7 +159,7 @@
 				this.keyword = '';
 				this.pBlockchainDetailsData={
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					transferType: "1",
 					beginDate:"",

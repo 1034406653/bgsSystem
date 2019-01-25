@@ -59,7 +59,6 @@
 				if(!imgFile)
 					return false;
 				let imgType = imgFile.type.split('/')[1];
-				console.log(imgType);
 				if(imgType == 'png' || imgType == 'jpg' || imgType == 'JPG' || imgType == 'jpeg' || imgType == 'JPEG' || imgType == 'PNG') {
 					let reader = new FileReader();
 					reader.readAsDataURL(imgFile);
@@ -73,8 +72,9 @@
 								suffix: imgType,
 							},
 						}).then(res => {
+							console.log(res.data.result)
 							if(res.status == 200) {
-								that.pGameAddData.photo = that.$baseURL + '/' + res.data.result;
+								that.pGameAddData.photo = res.data.result;
 							}
 						}).catch(res => {
 							this.$message(res);
@@ -89,8 +89,6 @@
 					return this.$message('请填写游戏名称');
 				if(this.pGameAddData.photo.length < 1)
 					return this.$message('请上传游戏图标');
-				if(this.pGameAddData.link.length < 1)
-					return this.$message('请填写游戏连接');
 				if(this.pGameAddData.text.length < 1)
 					return this.$message('请填写游戏备注');
 				this.$axios({

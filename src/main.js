@@ -17,17 +17,17 @@ import 'quill/dist/quill.bubble.css'
 Vue.use(VueQuillEditor)
 require('es6-promise/auto')
 Es6Promise.polyfill()
-
 /*ui框架*/ 
 Vue.use(ElementUI);
-
 /*运行环境*/
 Vue.config.productionTip = false;
 
 /*axios配置*/
 Vue.prototype.$axios = axios;
-Vue.prototype.$baseURL = 'http://192.168.0.115';
-axios.defaults.baseURL = 'http://192.168.0.115';
+Vue.prototype.$baseURL = 'http://admin.bgsgame.com/bgs/';
+axios.defaults.baseURL = 'http://admin.bgsgame.com/bgs/';
+/*Vue.prototype.$baseURL = 'http://192.168.0.115';
+axios.defaults.baseURL = 'http://192.168.0.115';*/
 axios.defaults.withCredentials=true;
 axios.interceptors.request.use(config =>{
 	let params = config.data || {};

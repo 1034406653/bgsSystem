@@ -41,9 +41,9 @@
 				bMenuList: [],
 				pbMenuData: {
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 				},
-				totalCount: 10,
+				totalCount: 6,
 			}
 		},
 		mounted() {
@@ -68,9 +68,6 @@
 			handleCurrentChange(val) {
 				this.pbMenuData.currentPage = val;
 				this.init();
-			},
-			handleRest(bid) {
-
 			},
 			handleDelete(rid) {
 				this.$confirm('确定要删除该角色吗?', '提示', {

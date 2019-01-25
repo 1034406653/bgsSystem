@@ -45,12 +45,12 @@
 				operationLogList: [],
 				pOperationLogData: {
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					beginDate:"",
 					endDate:"",
 				},
-				totalCount: 10,
+				totalCount: 6,
 				keyword: "",
 				pTime: "",
 				timePick: {
@@ -112,7 +112,7 @@
 				this.keyword = '';
 				this.pOperationLogData={
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					beginDate:"",
 					endDate:"",

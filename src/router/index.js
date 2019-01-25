@@ -20,14 +20,12 @@ import Finance_locked from '@/components/home/finance/locked'
 import Finance_locking from '@/components/home/finance/locking'
 import System_feedback from '@/components/home/system/feedback'
 import System_function from '@/components/home/system/function'
-import System_notification from '@/components/home/system/notification'
 import System_operation_log from '@/components/home/system/operation_log'
 import System_bUserList from '@/components/home/system/bUserList'
 import System_bUserAdd from '@/components/home/system/bUserAdd'
 import System_bRoleList from '@/components/home/system/bRoleList'
 import System_bRoleAdd from '@/components/home/system/bRoleAdd'
 import System_bMenuList from '@/components/home/system/bMenuList'
-import System_bMenuAdd from '@/components/home/system/bMenuAdd'
 import System_textList from '@/components/home/system/textList'
 import System_textAdd from '@/components/home/system/textAdd'
 import System_textChange from '@/components/home/system/textChange'
@@ -193,14 +191,7 @@ export default new Router({
 						keepAlive: true
 					}
 				},
-				{
-					path: '/home/system/notification',
-					name: 'System_notification',
-					component: System_notification,
-					meta: {
-						keepAlive: true
-					}
-				},
+				
 				{
 					path: '/home/system/operation_log',
 					name: 'System_operation_log',
@@ -245,15 +236,6 @@ export default new Router({
 					path: '/home/system/bMenuList',
 					name: 'System_bMenuList',
 					component: System_bMenuList,
-					meta: {
-						keepAlive: false
-					}
-				},
-				
-				{
-					path: '/home/system/bMenuAdd',
-					name: 'System_bMenuAdd',
-					component: System_bMenuAdd,
 					meta: {
 						keepAlive: false
 					}

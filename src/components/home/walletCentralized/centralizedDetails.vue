@@ -37,8 +37,9 @@
 					</el-table-column>
 					<el-table-column prop="status" label="状态">
 						<template slot-scope="scope">
-							<span v-if="scope.row.status=='0'">成功</span>
-							<span v-if="scope.row.status=='1'">失败</span>
+							<span v-if="scope.row.status==1" >进行中</span>
+							<span v-if="scope.row.status==2" >成功</span>
+							<span v-if="scope.row.status==3" >失败</span>
 						</template>
 					</el-table-column>
 					<el-table-column label="货币类型">
@@ -66,7 +67,7 @@
 				centralizedDetailsList: [],
 				pCentralizedDetailsData: {
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					transferType: "9",
 					beginDate:"",
@@ -78,7 +79,7 @@
 						return time.getTime() > Date.now();
 					},
 				},
-				totalCount: 10,
+				totalCount: 6,
 				keyword: "",
 				transferType: "提现支出（最小限额）--中心钱包转到链上钱包 ",
 				transferTypeList: [{
@@ -158,7 +159,7 @@
 				this.keyword = '';
 				this.pCentralizedDetailsData={
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					transferType: "9",
 					beginDate:"",

@@ -79,13 +79,13 @@
 				lockedList: [],
 				pLockedData: {
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					tokenType: "",
 					beginDate: "",
 					endDate: "",
 				},
-				totalCount: 10,
+				totalCount: 6,
 				keyword: "",
 				tokenTypeList: [{
 					value: '1',
@@ -159,7 +159,7 @@
 				this.keyword = '';
 				this.pLockedData = {
 					currentPage: 1,
-					pageSize: 10,
+					pageSize: 6,
 					keyword: '',
 					tokenType: "",
 					beginDate: "",

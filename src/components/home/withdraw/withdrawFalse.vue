@@ -62,13 +62,13 @@
 				withdrawSuccessList: [],
 				pWithdrawSuccessData: {
 					currentPage: 1,
-					pageSize: 8,
+					pageSize: 6,
 					keyword: '',
 					beginDate: "",
 					endDate: "",
 					tokenType: "",
 				},
-				totalCount: 8,
+				totalCount: 6,
 				keyword: "",
 				tokenTypeList: [{
 					value: '1',
@@ -139,7 +139,7 @@
 				this.keyword = '';
 				this.pWithdrawSuccessData = {
 					currentPage: 1,
-					pageSize: 8,
+					pageSize: 6,
 					keyword: '',
 					beginDate: "",
 					endDate: "",

@@ -131,7 +131,6 @@
 		}
 	}
 </script>
-
 <style scoped="scoped">
 	.confirmBtn {
 		display: block;

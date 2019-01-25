@@ -19,8 +19,6 @@
 					</el-table-column>
 					<el-table-column prop="gameName" label="游戏名">
 					</el-table-column>
-					<el-table-column prop="gid" label="ID">
-					</el-table-column>
 					<el-table-column label="头像">
 						<template slot-scope="scope">
 							<img :src="scope.row.photo" class="headPhoto" />
@@ -36,6 +34,7 @@
 						<template slot-scope="scope">
 							<span v-if='scope.row.type==1'>ETH</span>
 							<span v-if='scope.row.type==2'>EOS</span>
+							<span v-if='scope.row.type==3'>EOS</span>
 						</template>
 					</el-table-column>
 					<el-table-column prop="status" label="状态">
@@ -103,15 +102,18 @@
 				}, {
 					value: '2',
 					label: 'EOS'
+				}, {
+					value: '3',
+					label: '活动'
 				}],
-				gameType: '1',
+				gameType: '2',
 				gameList: [],
 				pGameData: {
 					currentPage: 1,
-					pageSize: 5,
-					type: 1,
+					pageSize: 6,
+					type: 2,
 				},
-				totalCount: 10,
+				totalCount: 6,
 				gameTop: {
 					show: false,
 					game1Id: "",

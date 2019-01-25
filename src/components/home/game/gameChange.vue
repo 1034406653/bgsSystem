@@ -91,8 +91,6 @@
 					return this.$message('请填写游戏名称');
 				if(!this.pGameChangeData.photo)
 					return this.$message('请上传游戏图标');
-				if(!this.pGameChangeData.link)
-					return this.$message('请填写游戏连接');
 				if(!this.pGameChangeData.text)
 					return this.$message('请填写游戏备注');
 				if(!this.pGameChangeData.gid)

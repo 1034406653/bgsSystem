@@ -11,30 +11,17 @@
 				</div>
 			</div>
 			<template>
-				<el-table :data="centralizedList" style="width: 100%" stripe>
-					<el-table-column prop="userBasic.uid" label="ID">
-					</el-table-column>
+				<el-table :data="centralizedList" style="width: 100%" stripe>	
+					
 					<el-table-column prop="userBasic.nickName" label="用户名">
 					</el-table-column>
 					<el-table-column prop="userBasic.phoneNumber" label="手机号">
 					</el-table-column>
-					<el-table-column prop="ethtoken.ethaddress" label="ETH地址">
-					</el-table-column>
 					<el-table-column prop="ethtoken.amount" label="ETH钱包余额">
-					</el-table-column>
-					<el-table-column prop="ethtoken.canLock" label="ETH锁定金">
-					</el-table-column>
-					<el-table-column prop="eostoken.eosaccountName" label="EOS地址">
 					</el-table-column>
 					<el-table-column prop="eostoken.amount" label="EOS钱包余额">
 					</el-table-column>
-					<el-table-column prop="eostoken.canLock" label="EOS锁定金">
-					</el-table-column>
-					<el-table-column prop="bgstoken.ethaddress" label="BGS地址">
-					</el-table-column>
 					<el-table-column prop="bgstoken.amount" label="BGS钱包余额">
-					</el-table-column>
-					<el-table-column prop="bgstoken.canLock" label="BGS锁定金">
 					</el-table-column>
 				</el-table>
 			</template>
@@ -54,10 +41,10 @@
 				centralizedList: [],
 				pCentralizedData: {
 					currentPage: 1,
-					pageSize: 8,
+					pageSize: 6,
 					keyword: '',
 				},
-				totalCount: 8,
+				totalCount: 6,
 				keyword: "",
 			}
 		},
@@ -89,9 +76,9 @@
 			},
 			refreshKeyword() {
 				this.keyword = '';
-				this.pCentralizedData={
+				this.pCentralizedData = {
 					currentPage: 1,
-					pageSize: 8,
+					pageSize: 6,
 					keyword: '',
 				};
 				this.init();
@@ -101,4 +88,5 @@
 </script>
 
 <style scoped="scoped">
+
 </style>
