@@ -52,17 +52,19 @@
 		},
 		methods: {
 			init() {
-				console.log(this.$route.params);
+				
 				if(this.$route.params.pGameChangeData) {
 					this.pGameChangeData=this.$route.params.pGameChangeData;
 					this.$set(this.pGameChangeData,"type",this.$route.params.pGameChangeData.type.toString())
 				}
 			},
 			handleFileChange(event) {
+				
 				let that = this;
 				let imgFile = event.currentTarget.files[0];
 				let imgType = imgFile.type.split('/')[1];
 				if(imgType == 'png' || imgType == 'jpg' || imgType == 'JPG' || imgType == 'PNG') {
+					
 					let reader = new FileReader();
 					reader.readAsDataURL(imgFile);
 					reader.onload = function(e) {
@@ -75,8 +77,9 @@
 								suffix: imgType,
 							},
 						}).then(res => {
+							
 							if(res.status == 200) {
-								that.pGameChangeData.photo = that.$baseURL + '/' + res.data.result;
+								that.pGameChangeData.photo =res.data.result;
 							}
 						}).catch(res => {
 							this.$message(res);

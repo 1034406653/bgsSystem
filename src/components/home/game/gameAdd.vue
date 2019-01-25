@@ -72,7 +72,6 @@
 								suffix: imgType,
 							},
 						}).then(res => {
-							console.log(res.data.result)
 							if(res.status == 200) {
 								that.pGameAddData.photo = res.data.result;
 							}
