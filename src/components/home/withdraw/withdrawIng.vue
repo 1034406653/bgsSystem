@@ -164,13 +164,14 @@
 					pCheckData.gasPrice = 0.00027
 				}
 				pCheckData.auditor = window.localStorage.getItem('realName') || '找不到用户真实姓名';
-				this.$prompt('填写备注，点击确定完成审核', {
-					confirmButtonText: '确定',
-					cancelButtonText: '取消',
+				this.$prompt('请填写备注', {
+					confirmButtonText: '同意',
+					cancelButtonText: '拒绝',
 				}).then(({
 					value
 				}) => {
 					pCheckData.remark = value || '无备注';
+					pCheckData.status = 1;
 					this.$axios({
 						method: 'post',
 						url: '/mgrsite/withdrawMoney/audit.do',
@@ -185,10 +186,19 @@
 					}).catch(error => {
 						this.$message(error);
 					});
-				}).catch(() => {
-					this.$message({
-						type: 'info',
-						message: '取消输入'
+				}).catch((value) => {
+					pCheckData.remark = value || '无备注';
+					pCheckData.status = 2;
+					this.$axios({
+						method: 'post',
+						url: '/mgrsite/withdrawMoney/audit.do',
+						data: pCheckData,
+					}).then(res => {
+						console.log(res);
+						this.$message('你拒绝了该申请');
+						this.init();
+					}).catch(error => {
+						this.$message(error);
 					});
 				});
 

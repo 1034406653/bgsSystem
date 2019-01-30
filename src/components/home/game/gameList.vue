@@ -43,11 +43,11 @@
 							<span v-if='scope.row.status==1'>上架</span>
 						</template>
 					</el-table-column>
-					<el-table-column prop="status" label="返额">
+					<!--<el-table-column prop="status" label="返额">
 						<template slot-scope="scope">
 							<el-button size="mini" @click='handleWatchMoney'>查看</el-button>
 						</template>
-					</el-table-column>
+					</el-table-column>-->
 					<el-table-column label="操作" width='280'>
 						<template slot-scope="scope">
 							<el-button size="mini" @click="handleTop(scope.row.gid,scope.row.gameName,scope.row.sort)">置顶</el-button>
@@ -141,6 +141,7 @@
 					url: '/mgrsite/games.do',
 					params: this.pGameData,
 				}).then(res => {
+					console.log(res);
 					if(res.status == 200) {
 						this.totalCount = res.data.result.totalCount;
 						this.gameList = res.data.result.data;

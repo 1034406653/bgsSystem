@@ -8,7 +8,7 @@
 			</div>
 			<div class="input-box">
 				<span>游戏图标</span>
-				<input class="gamePic" ref="inputer" type="file" accept="image/png, image/jpg" @change="handleFileChange($event)" />
+				<input class="gamePic" ref="inputer" type="file" accept="image/png, image/jpeg, image/jpg," @change="handleFileChange($event)" />
 				<div class="gamePicBtn"> 选择图片</div>
 				<b>请选用正方形图片，宽高150px左右，格式jpg,png</b>
 			</div>
@@ -23,6 +23,7 @@
 				<span>游戏类型</span>
 				<el-radio v-model="pGameChangeData.type" label="1">ETH</el-radio>
 				<el-radio v-model="pGameChangeData.type" label="2">EOS</el-radio>
+				<el-radio v-model="pGameChangeData.type" label="3">活动</el-radio>
 			</div>
 			<div class="input-box">
 				<span>备注</span>
@@ -52,39 +53,38 @@
 		},
 		methods: {
 			init() {
-				
 				if(this.$route.params.pGameChangeData) {
 					this.pGameChangeData=this.$route.params.pGameChangeData;
 					this.$set(this.pGameChangeData,"type",this.$route.params.pGameChangeData.type.toString())
 				}
 			},
 			handleFileChange(event) {
-				
 				let that = this;
 				let imgFile = event.currentTarget.files[0];
+				if(!imgFile)
+					return false;
 				let imgType = imgFile.type.split('/')[1];
-				if(imgType == 'png' || imgType == 'jpg' || imgType == 'JPG' || imgType == 'PNG') {
-					
-					let reader = new FileReader();
-					reader.readAsDataURL(imgFile);
-					reader.onload = function(e) {
-						let base64 = this.result.split(';base64,')[1];
-						that.$axios({
-							method: 'post',
-							url: '/mgrsite/fireUpload.do',
-							data: {
-								pic: base64,
-								suffix: imgType,
-							},
-						}).then(res => {
-							
-							if(res.status == 200) {
-								that.pGameChangeData.photo =res.data.result;
-							}
-						}).catch(res => {
-							this.$message(res);
-						});
+				if(imgType == 'png' || imgType == 'jpg' || imgType == 'JPG' || imgType == 'jpeg' || imgType == 'JPEG' || imgType == 'PNG') {
+					let file = event.currentTarget.files[0];
+					let param = new FormData() // 创建form对象
+					param.append('image', file, file.name) // 通过append向form对象添加数据
+					let config = {
+						headers: {
+							'Content-Type': 'multipart/form-data'
+						}
 					}
+					// 添加请求头
+					let postimgUrl = 'http://bgsgame.com/bgs/api/upload/upload_img'
+					this.$axios.defaults.withCredentials = false;
+					this.$axios.post(postimgUrl, param, config)
+						.then(res => {
+							this.$axios.defaults.withCredentials = true;
+							if(res.data.code == 0) {
+								that.pGameChangeData.photo = res.data.data;
+							}
+						}).catch(err=>{
+							this.$message(err);
+						})				
 				} else {
 					this.$message('图片格式不正确');
 				}

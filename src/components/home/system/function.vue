@@ -76,7 +76,9 @@
 				});
 			},
 			handleConfig(config) {
-				this.changeConfig.config = config;
+				this.changeConfig.config.confName = config.confName;
+				this.changeConfig.config.confValue = config.confValue;
+				this.changeConfig.config.explain = config.explain;
 				this.changeConfig.show = true;
 			},
 			handleChangeConfig() {
@@ -95,6 +97,7 @@
 							type: 'success',
 							message: res.data.result
 						});
+						this.init();
 						this.changeConfig.show = false;
 					}
 				}).catch(error => {

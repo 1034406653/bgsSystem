@@ -25,6 +25,8 @@
 				<el-table :data="withdrawSuccessList" style="width: 100%" stripe>
 					<el-table-column prop="auditTime" label="审核时间">
 					</el-table-column>
+					<el-table-column prop="remark" label="备注">
+					</el-table-column>
 					<el-table-column prop="auditor" label="审核人">
 					</el-table-column>
 					<el-table-column prop="createdTime" label="申请时间">
