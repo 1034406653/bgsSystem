@@ -31,7 +31,6 @@ axios.defaults.baseURL = 'http://admin.bgsgame.com/bgs/';
 axios.defaults.baseURL = 'http://192.168.0.115';*/
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use(config => {
-	
 	if(config.url != 'http://bgsgame.com/bgs/api/upload/upload_img') {
 		let params = config.data || {};
 		config.data = qs.stringify(params);

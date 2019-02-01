@@ -87,6 +87,8 @@
 						return time.getTime() > Date.now();
 					},
 				},
+				BGSgasPrice:0.00010,
+				ETHgasPrice:0.00027,	
 			}
 		},
 		watch: {
@@ -125,6 +127,22 @@
 				}).catch(error => {
 					console.log(error);
 				});
+				
+				this.$axios({
+					method: 'get',
+					url: '/mgrsite/conf.do',
+				}).then(res => {
+					res.data.result.forEach((x,i)=>{
+						if(x.confName=='BGS_GAS_MIN'){
+							this.BGSgasPrice=x.confValue;
+						}
+						if(x.confName=='ETH_GAS_MIN'){
+							this.BGSgasPrice=x.confValue;
+						}
+					})
+				}).catch(error => {
+					console.log(error);
+				});
 			},
 			handleCurrentChange(val) {
 				this.pWithdrawIngData.currentPage = val;
@@ -148,20 +166,19 @@
 				this.init();
 			},
 			handleCheck(itemData) {
-				console.log(itemData);
 				let pCheckData = {};
 				pCheckData.UID = itemData.uid;
 				pCheckData.WID = itemData.wid;
 				pCheckData.tokenType = itemData.tokenType;
 				pCheckData.tokenAmount = itemData.amount;
 				if(pCheckData.tokenType == 1) {
-					pCheckData.gasPrice = 0.00010
+					pCheckData.gasPrice = this.BGSgasPrice;
 				}
 				if(pCheckData.tokenType == 2) {
 					pCheckData.gasPrice = 0
 				}
 				if(pCheckData.tokenType == 3) {
-					pCheckData.gasPrice = 0.00027
+					pCheckData.gasPrice = this.ETHgasPrice;
 				}
 				pCheckData.auditor = window.localStorage.getItem('realName') || '找不到用户真实姓名';
 				this.$prompt('请填写备注', {
