@@ -7,7 +7,7 @@
 					<el-select v-model="gameType">
 						<el-option v-for="item in gameTypeList" :key="item.value" :label="item.label" :value="item.value">
 						</el-option>
-					</el-select>
+					</el-select>	
 				</template>
 				<div class="inputbox">
 					<el-button @click="$router.push('/home/game/gameAdd')">新增游戏</el-button>
@@ -139,7 +139,7 @@
 				this.$axios({
 					method: 'get',
 					url: '/mgrsite/games.do',
-					params: this.pGameData,
+					data: this.pGameData,
 				}).then(res => {
 					console.log(res);
 					if(res.status == 200) {

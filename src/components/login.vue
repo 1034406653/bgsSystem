@@ -53,7 +53,7 @@
 						})
 					},500)
 				}).catch(res => {
-					console.log(res)
+					that.$message(res);
 				});
 			}
 		}

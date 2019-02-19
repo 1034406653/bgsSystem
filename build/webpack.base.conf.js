@@ -8,8 +8,6 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-
-
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
@@ -22,6 +20,10 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  externals: {
+		vue: 'Vue',
+		'element-ui': 'ELEMENT'
+	},
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
